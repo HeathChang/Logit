@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* [Logit System Colors] */
+  --status-success: #88AB75; /* 둘 다 완료: 차분한 초록 */
+  --status-warning: #E7A675; /* 하나만 완료: 부드러운 주황 */
+  --status-danger: #D67676;  /* 둘 다 미완료: 톤다운된 레드 */
+
+  /* [Brand Palette - Based on your provided blue/green] */
+  --logit-log-primary: var(--brandrems-blue-blue-6);   /* #0059d6 */
+  --logit-git-primary: var(--brandrems-green-green-7); /* #09d868 */
+
+  /* [Background & Text] */
+  --bg-default: #F5F5F7;
+  --bg-card: #FFFFFF;
+  --text-main: #1C1C1C;
+  --text-sub: #6D7078;
+  --border-default: #EEEEEE;
+}
+
+body[data-mode='dark'] {
+  --status-success: #A3CC8B;
+  --status-warning: #F0C496;
+  --status-danger: #E59898;
+
+  --logit-log-primary: #0064f0;
+  --logit-git-primary: #2cbc6f;
+
+  --bg-default: #1A1A1E;
+  --bg-card: #282A36;
+  --text-main: #EAEAEA;
+  --text-sub: #B0B0B0;
+  --border-default: #333333;
+}
+
+body {
+  background-color: var(--bg-default);
+  color: var(--text-main);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* 20년차 베테랑의 팁: 스크롤바 커스텀 유지 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--logit-log-primary);
+  border-radius: 10px;
+}
