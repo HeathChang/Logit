@@ -1,6 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+:root {
+  --font-inter: var(--font-inter, system-ui, -apple-system, sans-serif);
+}
 
 :root {
   /* [Logit System Colors] */
@@ -38,6 +40,7 @@ body[data-mode='dark'] {
 body {
   background-color: var(--bg-default);
   color: var(--text-main);
+  font-family: var(--font-inter, system-ui, -apple-system, sans-serif);
   transition: background-color 0.3s, color 0.3s;
 }
 
