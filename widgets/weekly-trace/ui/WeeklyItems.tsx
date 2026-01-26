@@ -1,6 +1,6 @@
 const WeeklyItems = () => {
     return (
-        <div>
+        <div className="">
             <h1>WeeklyItems</h1>
         </div>
     );
