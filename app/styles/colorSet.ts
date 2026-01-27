@@ -1,4 +1,3 @@
-// src/shared/config/colorSet.ts
 export const COLOR_SET = {
   // Mission Status (신호등)
   'status-success': 'var(--status-success)',
