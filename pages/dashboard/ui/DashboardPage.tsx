@@ -13,7 +13,7 @@ const DashboardPage = () => {
                         <div className="border-1 border-yellow-500">
                             <DailyMission />
                         </div>
-                        <div className="border-1 border-blue-500">
+                        <div className="h-100">
                             <LogEditor />
                         </div>
                         <div className="border-1 border-green-500">
