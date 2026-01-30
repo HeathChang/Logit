@@ -9,19 +9,19 @@ const DashboardPage = () => {
         <div className="min-h-screen bg-bg-main">
             <div className="w-full max-w-7xl mx-auto px-4 py-6">
                 <div className="flex gap-6 justify-center">
-                    <main className="border border-red-500 min-w-[720px] flex flex-col gap-6 ">
-                        <div className="border-1 border-yellow-500">
+                    <main className="min-w-[720px] flex flex-col gap-6 ">
+                        <div className="">
                             <DailyMission />
                         </div>
                         <div className="h-100">
                             <LogEditor />
                         </div>
-                        <div className="border-1 border-green-500">
+                        <div className="">
                             <WeeklyItems />
                         </div>
                     </main>
 
-                    <aside className="hidden min-[1080px]:block w-80 flex-shrink-0 border border-blue-500 sticky top-0 self-start h-100">
+                    <aside className="hidden min-[1080px]:block w-80 flex-shrink-0 sticky top-0 self-start h-100">
                         <GitCalendar />
                     </aside>
                 </div>
