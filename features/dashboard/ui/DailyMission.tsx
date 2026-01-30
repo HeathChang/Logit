@@ -1,17 +1,18 @@
 import MissionCard from "@/shared/ui/MissionCard";
+import { IconEqual, IconPlus } from "@tabler/icons-react";
 
 const DailyMission = () => {
     return (
-        <div className='flex flex-row justify-between px-8 py-4'>
-            <div className=''>
-                <MissionCard title='Log' isSuccess={true} />
+        <div className='flex flex-row items-center justify-center gap-6 px-8 py-6 bg-bg-card rounded-lg border border-border-main shadow-sm'>
+            <MissionCard title='Log' isSuccess={true} />
+            <div className='flex items-center justify-center text-text-sub'>
+                <IconPlus size={28} strokeWidth={1.5} className="opacity-60" />
             </div>
-            <div className=''>
-                <MissionCard title='Git' isSuccess={true} />
+            <MissionCard title='Git' isSuccess={true} />
+            <div className='flex items-center justify-center text-text-sub'>
+                <IconEqual size={28} strokeWidth={1.5} className="opacity-60" />
             </div>
-            <div className='ml-8'>
-                <MissionCard title='Free to Go' isSuccess={true} />
-            </div>
+            <MissionCard title='Free to Go' isSuccess={true} />
         </div>
     );
 };
