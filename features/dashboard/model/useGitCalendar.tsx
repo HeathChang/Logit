@@ -1,5 +1,3 @@
-import { SyntheticEvent } from "react";
-
 const useGitCalendar = () => {
 
     const startDate = new Date();

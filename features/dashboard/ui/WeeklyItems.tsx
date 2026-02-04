@@ -3,8 +3,6 @@ type TraceItem = {
     dateLabel: string;
     /** 로그 제목 또는 첫 줄. 없으면 "기록 없음" 표시 */
     logTitle?: string | null;
-    /** 해당 날짜에 로그를 실제로 작성했는지 */
-    hasLog: boolean;
     /** 해당 날짜의 커밋 개수 */
     commitCount: number;
 };
@@ -13,35 +11,32 @@ type WeeklyItemsProps = {
     items?: TraceItem[];
 };
 
+import WeeklyItem from "./WeeklyItem";
+
 const DEFAULT_WEEKLY_ITEMS: TraceItem[] = [
     {
         dateLabel: "01.27 Mon",
         logTitle: "오늘은 리팩토링을 마무리했다",
-        hasLog: true,
         commitCount: 5,
     },
     {
         dateLabel: "01.28 Tue",
         logTitle: "테스트 코드 정리",
-        hasLog: true,
         commitCount: 0,
     },
     {
         dateLabel: "01.29 Wed",
         logTitle: null,
-        hasLog: false,
         commitCount: 3,
     },
     {
         dateLabel: "01.30 Thu",
         logTitle: null,
-        hasLog: false,
         commitCount: 0,
     },
 ];
 
 const WeeklyItems = ({ items = DEFAULT_WEEKLY_ITEMS }: WeeklyItemsProps) => {
-    const hasItems = items.length > 0;
 
     return (
         <section className="w-full rounded-xl bg-bg-card p-4 shadow-sm">
@@ -72,63 +67,15 @@ const WeeklyItems = ({ items = DEFAULT_WEEKLY_ITEMS }: WeeklyItemsProps) => {
             </header>
 
             <div className="flex flex-col divide-y divide-border-main">
-                {hasItems ? (
+                {items.length > 0 ? (
                     items.map((item) => {
-                        const hasCommit = item.commitCount > 0;
-                        const hasLog = item.hasLog;
-
-                        const displayTitle =
-                            hasLog && item.logTitle && item.logTitle.trim().length > 0
-                                ? item.logTitle
-                                : "기록 없음";
-
-                        const statusLabel =
-                            hasLog && hasCommit
-                                ? "Success"
-                                : hasLog || hasCommit
-                                    ? "Warning"
-                                    : "Fail";
-
-                        const statusColorClass =
-                            hasLog && hasCommit
-                                ? "bg-status-success"
-                                : hasLog || hasCommit
-                                    ? "bg-status-warning"
-                                    : "bg-status-danger";
-
                         return (
-                            <article
+                            <WeeklyItem
                                 key={item.dateLabel}
-                                className="flex items-center justify-between py-2"
-                            >
-                                {/* 날짜 및 요일 */}
-                                <div className="min-w-[88px] text-xs font-medium text-text-sub">
-                                    {item.dateLabel}
-                                </div>
-
-                                {/* 로그 요약 */}
-                                <div className="flex-1 px-3">
-                                    <p
-                                        className={`truncate text-sm ${hasLog ? "text-text-main" : "text-text-sub italic"
-                                            }`}
-                                    >
-                                        {displayTitle}
-                                    </p>
-                                </div>
-
-                                {/* Git 활동 요약 */}
-                                <div className="w-[96px] text-right text-xs text-text-sub">
-                                    {hasCommit ? `${item.commitCount} Commits` : "0 Commit"}
-                                </div>
-
-                                {/* 상태 신호등 */}
-                                <div className="ml-3 flex items-center gap-1.5 text-[10px]">
-                                    <span
-                                        className={`inline-block h-2.5 w-2.5 rounded-full ${statusColorClass}`}
-                                    />
-                                    <span className="text-text-sub">{statusLabel}</span>
-                                </div>
-                            </article>
+                                dateLabel={item.dateLabel}
+                                logTitle={item.logTitle}
+                                commitCount={item.commitCount}
+                            />
                         );
                     })
                 ) : (
