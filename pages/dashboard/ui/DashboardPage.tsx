@@ -1,7 +1,8 @@
-import GitCalendar from "@/features/dashboard/ui/GitCalendar";
-import WeeklyItems from "@/features/dashboard/ui/WeeklyItems";
-import LogEditor from "@/features/dashboard/ui/LogEditor";
-import DailyMission from "@/features/dashboard/ui/DailyMission";
+import { GitCalendarContainer } from "@/features/dashboard/ui/GitCalendar";
+import { MonthlyCalendarContainer } from "@/features/dashboard/ui/MonthlyCalendar";
+import { WeeklyItems } from "@/features/dashboard/ui/WeeklyItems";
+import { LogEditorContainer } from "@/features/dashboard/ui/LogEditor";
+import { DailyMission } from "@/features/dashboard/ui/DailyMission";
 
 
 const DashboardPage = () => {
@@ -14,7 +15,7 @@ const DashboardPage = () => {
                             <DailyMission />
                         </div>
                         <div className="h-100">
-                            <LogEditor />
+                            <LogEditorContainer />
                         </div>
                         <div className="">
                             <WeeklyItems />
@@ -22,7 +23,10 @@ const DashboardPage = () => {
                     </main>
 
                     <aside className="hidden min-[1080px]:block w-80 flex-shrink-0 sticky top-0 self-start h-100">
-                        <GitCalendar />
+                        <div className="flex flex-col gap-6">
+                            <GitCalendarContainer />
+                            <MonthlyCalendarContainer />
+                        </div>
                     </aside>
                 </div>
             </div >

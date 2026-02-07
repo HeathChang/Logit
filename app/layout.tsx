@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/app/styles/globals.css";
-import Header from "@/features/global/ui/Header";
+import { HeaderContainer } from "@/features/global/ui/Header";
+import { ThemeProvider } from "@/shared/config/theme/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,15 +23,14 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${inter.variable} font-sans antialiased bg-bg-main text-text-main min-h-screen transition-colors duration-300`}
-        data-mode="light"
+        className={`${inter.variable} min-h-screen bg-bg-main font-sans text-text-main transition-colors duration-300`}
       >
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-1">
-            {children}
-          </main>
-        </div>
+        <ThemeProvider>
+          <div className="flex min-h-screen flex-col">
+            <HeaderContainer />
+            <main className="flex-1">{children}</main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

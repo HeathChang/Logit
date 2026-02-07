@@ -1,28 +1,22 @@
-
-// Point to Think: Theme 과 
+import type { InitialConfigType } from "@lexical/react/LexicalComposer";
 
 interface UseEditorProps {
-    theme: object;
+  theme: InitialConfigType["theme"];
 }
 
 export const useEditor = ({ theme }: UseEditorProps) => {
+  const onError = (error: Error) => {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  };
 
+  const initialConfig: InitialConfigType = {
+    namespace: "logit-log-editor",
+    theme,
+    onError,
+  };
 
-    const onError = (error: Error) => {
-        console.error(error);
-    }
-
-
-
-
-
-    const initialConfig = {
-        namespace: "logit-log-editor",
-        theme,
-        onError,
-    };
-
-    return {
-        initialConfig,
-    }
+  return {
+    initialConfig,
+  };
 };
