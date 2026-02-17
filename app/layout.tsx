@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/app/styles/globals.css";
-import { HeaderContainer } from "@/features/global/ui/Header";
 import { ThemeProvider } from "@/shared/config/theme/ThemeProvider";
 
 const inter = Inter({
@@ -26,10 +25,7 @@ export default function RootLayout({
         className={`${inter.variable} min-h-screen bg-bg-main font-sans text-text-main transition-colors duration-300`}
       >
         <ThemeProvider>
-          <div className="flex min-h-screen flex-col">
-            <HeaderContainer />
-            <main className="flex-1">{children}</main>
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
