@@ -73,10 +73,10 @@ const SettingPage = () => {
                         />
                     </section>
 
-                    {/* 테마 설정 섹션 */}
-                    <section className="rounded-2xl border border-border-main bg-bg-card px-6 py-6 shadow-sm">
+                    {/* 테마 설정 섹션 -> 주석 처리 */}
+                    {/* <section className="rounded-2xl border border-border-main bg-bg-card px-6 py-6 shadow-sm">
                         <ThemeSetting />
-                    </section>
+                    </section> */}
 
                     {/* 저장 버튼 */}
                     <div className="flex justify-end">
