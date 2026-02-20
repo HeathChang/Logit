@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "@/shared/ui/Button";
+
 export const LoginForm = () => {
     return (
         <section className="w-full max-w-sm rounded-2xl border border-border-main bg-bg-card px-6 py-8 shadow-sm">
@@ -41,19 +43,18 @@ export const LoginForm = () => {
                     />
                 </div>
 
-                <button
+                <Button
                     type="submit"
                     className="mt-2 h-9 rounded-lg bg-logit-log text-xs font-semibold text-white shadow-sm transition-colors hover:opacity-90"
                 >
                     로그인
-                </button>
+                </Button>
 
-                <button
-                    type="button"
+                <Button
                     className="mt-1 h-9 rounded-lg border border-border-main bg-bg-main text-xs font-medium text-text-main transition-colors hover:border-logit-git hover:text-logit-git"
                 >
                     GitHub로 계속하기
-                </button>
+                </Button>
             </form>
         </section>
     );

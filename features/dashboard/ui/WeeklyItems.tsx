@@ -11,6 +11,7 @@ export type WeeklyItemsProps = {
   items?: TraceItem[];
 };
 
+import { DUAL_STATUS } from "@/shared/type/common.type";
 import { WeeklyItem } from "./WeeklyItem";
 
 const DEFAULT_WEEKLY_ITEMS: TraceItem[] = [
@@ -50,15 +51,15 @@ export const WeeklyItems = ({ items = DEFAULT_WEEKLY_ITEMS }: WeeklyItemsProps) 
         <div className="flex items-center gap-2 text-[10px] text-text-sub">
           <div className="flex items-center gap-1">
             <span className="inline-block h-2 w-2 rounded-full bg-status-success" />
-            <span>Success</span>
+            <span>{DUAL_STATUS.BOTH}</span>
           </div>
           <div className="flex items-center gap-1">
             <span className="inline-block h-2 w-2 rounded-full bg-status-warning" />
-            <span>Warning</span>
+            <span>{DUAL_STATUS.ONE}</span>
           </div>
           <div className="flex items-center gap-1">
             <span className="inline-block h-2 w-2 rounded-full bg-status-danger" />
-            <span>Fail</span>
+            <span>{DUAL_STATUS.NONE}</span>
           </div>
         </div>
       </header>

@@ -1,7 +1,9 @@
 "use client";
 
+import { DUAL_STATUS } from "@/shared/type/common.type";
 import type { DayStatus } from "../model/useMonthlyCalendar";
 import { useMonthlyCalendar } from "../model/useMonthlyCalendar";
+import Button from "@/shared/ui/Button";
 
 export interface MonthlyCalendarProps {
   monthLabel: string;
@@ -53,8 +55,7 @@ export const MonthlyCalendar = ({
             월간 활동 달력
           </h2>
           <div className="flex items-center gap-2">
-            <button
-              type="button"
+            <Button
               onClick={goToPreviousMonth}
               className="rounded p-1 transition-colors hover:bg-bg-main"
               aria-label="이전 달"
@@ -74,16 +75,14 @@ export const MonthlyCalendar = ({
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
               onClick={goToToday}
               className="px-2 py-1 text-xs text-text-sub transition-colors hover:text-text-main"
             >
               오늘
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
               onClick={goToNextMonth}
               className="rounded p-1 transition-colors hover:bg-bg-main"
               aria-label="다음 달"
@@ -103,7 +102,7 @@ export const MonthlyCalendar = ({
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
+            </Button>
           </div>
         </div>
         <p className="text-xs text-text-sub">{monthLabel}</p>
@@ -111,24 +110,20 @@ export const MonthlyCalendar = ({
 
       {/* 토글 버튼 */}
       <div className="mb-4 flex gap-2">
-        <button
-          type="button"
+        <Button
           onClick={onToggleLog}
-          className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${
-            showLog ? "bg-logit-log text-white" : "bg-bg-main text-text-sub"
-          }`}
+          className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${showLog ? "bg-logit-log text-white" : "bg-bg-main text-text-sub"
+            }`}
         >
           Log
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
           onClick={onToggleGit}
-          className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${
-            showGit ? "bg-logit-git text-white" : "bg-bg-main text-text-sub"
-          }`}
+          className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${showGit ? "bg-logit-git text-white" : "bg-bg-main text-text-sub"
+            }`}
         >
           Git
-        </button>
+        </Button>
       </div>
 
       {/* 달력 그리드 */}
@@ -138,13 +133,12 @@ export const MonthlyCalendar = ({
           {weekDays.map((day, index) => (
             <div
               key={day}
-              className={`py-1 text-center text-xs font-medium ${
-                index === 0
+              className={`py-1 text-center text-xs font-medium ${index === 0
                   ? "text-status-danger"
                   : index === 6
                     ? "text-logit-log"
                     : "text-text-sub"
-              }`}
+                }`}
             >
               {day}
             </div>
@@ -168,9 +162,8 @@ export const MonthlyCalendar = ({
             return (
               <div
                 key={date.toISOString()}
-                className={`flex aspect-square flex-col items-center justify-center rounded text-xs text-text-main transition-colors ${
-                  isTodayDate ? "ring-2 ring-logit-log" : "hover:bg-bg-main"
-                }`}
+                className={`flex aspect-square flex-col items-center justify-center rounded text-xs text-text-main transition-colors ${isTodayDate ? "ring-2 ring-logit-log" : "hover:bg-bg-main"
+                  }`}
               >
                 <span className="mb-0.5 text-[10px] font-medium">
                   {date.getDate()}
@@ -187,15 +180,15 @@ export const MonthlyCalendar = ({
         <div className="flex items-center justify-center gap-4 text-xs text-text-sub">
           <div className="flex items-center gap-1.5">
             <span className="font-bold text-status-success">✓</span>
-            <span>둘 다</span>
+            <span>{DUAL_STATUS.BOTH}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="font-bold text-status-warning">△</span>
-            <span>하나만</span>
+            <span>{DUAL_STATUS.ONE}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="font-bold text-status-danger">✗</span>
-            <span>없음</span>
+            <span>{DUAL_STATUS.NONE}</span>
           </div>
         </div>
       </div>

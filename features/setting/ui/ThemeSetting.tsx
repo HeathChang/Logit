@@ -1,6 +1,7 @@
 "use client";
 
 import { useTheme } from "@/shared/config/theme/ThemeProvider";
+import Button from "@/shared/ui/Button";
 
 export const ThemeSetting = () => {
     const { theme, toggleTheme } = useTheme();
@@ -15,13 +16,12 @@ export const ThemeSetting = () => {
                     다크 모드와 라이트 모드를 전환할 수 있습니다.
                 </p>
             </div>
-            <button
-                type="button"
+            <Button
                 onClick={toggleTheme}
                 className="h-9 rounded-lg border border-border-main bg-bg-main px-4 text-xs font-medium text-text-main transition-colors hover:border-logit-log hover:text-logit-log"
             >
                 {theme === "dark" ? "라이트 모드" : "다크 모드"}
-            </button>
+            </Button>
         </div>
     );
 };

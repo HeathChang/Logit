@@ -12,6 +12,7 @@ import { $getRoot } from "lexical";
 import type { InitialConfigType } from "@lexical/react/LexicalComposer";
 
 import { useEditor } from "@/features/dashboard/model/useEditor";
+import Button from "@/shared/ui/Button";
 
 export interface LogEditorProps {
   initialConfig: InitialConfigType;
@@ -108,8 +109,7 @@ export const LogEditorView = ({
 
             <div className="mt-2 flex items-center justify-between border-t border-dashed border-border-main pt-2 text-[10px] text-text-sub">
               <span>Shift + Enter 로 줄바꿈</span>
-              <button
-                type="button"
+              <Button
                 onClick={onSave}
                 disabled={!isSaveEnabled}
                 className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
@@ -119,7 +119,7 @@ export const LogEditorView = ({
                 }`}
               >
                 저장
-              </button>
+              </Button>
             </div>
           </div>
         </LexicalComposer>

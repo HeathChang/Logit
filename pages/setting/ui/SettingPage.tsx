@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { SettingForm } from "@/features/setting/ui/SettingForm";
 import { UserInfo } from "@/features/setting/ui/UserInfo";
-import { ThemeSetting } from "@/features/setting/ui/ThemeSetting";
+import Button from "@/shared/ui/Button";
 
 const SettingPage = () => {
     // TODO: 실제 로그인 상태와 유저 정보는 나중에 인증 로직과 연동
@@ -73,20 +73,14 @@ const SettingPage = () => {
                         />
                     </section>
 
-                    {/* 테마 설정 섹션 -> 주석 처리 */}
-                    {/* <section className="rounded-2xl border border-border-main bg-bg-card px-6 py-6 shadow-sm">
-                        <ThemeSetting />
-                    </section> */}
-
                     {/* 저장 버튼 */}
                     <div className="flex justify-end">
-                        <button
-                            type="button"
+                        <Button
                             onClick={handleSave}
                             className="h-9 rounded-lg bg-logit-log px-6 text-xs font-semibold text-white shadow-sm transition-colors hover:opacity-90"
                         >
                             저장하기
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,5 @@
+import { DUAL_STATUS } from "@/shared/type/common.type";
+
 export type WeeklyItemProps = {
   /** 예: "01.29 Wed" */
   dateLabel: string;
@@ -19,10 +21,10 @@ export const WeeklyItem = ({
 
   const statusLabel =
     hasLog && hasCommit
-      ? "Success"
+      ? DUAL_STATUS.BOTH
       : hasLog || hasCommit
-        ? "Warning"
-        : "Fail";
+        ? DUAL_STATUS.ONE
+        : DUAL_STATUS.NONE;
 
   const statusColorClass =
     hasLog && hasCommit
@@ -41,9 +43,8 @@ export const WeeklyItem = ({
       {/* 로그 요약 */}
       <div className="flex-1 px-3">
         <p
-          className={`truncate text-sm ${
-            hasLog ? "text-text-main" : "italic text-text-sub"
-          }`}
+          className={`truncate text-sm ${hasLog ? "text-text-main" : "italic text-text-sub"
+            }`}
         >
           {displayTitle}
         </p>
