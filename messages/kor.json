@@ -1,0 +1,93 @@
+{
+    "common": {
+        "appName": "Logit",
+        "description": "기록이 쌓이면 성장이 보입니다. 나의 학습과 작업을 기록하고, GitHub 활동을 한곳에서 관리하며 성장을 추적하는 개인 개발 로그 서비스.",
+        "save": "저장",
+        "saveAction": "저장하기",
+        "cancel": "취소",
+        "delete": "삭제",
+        "edit": "수정",
+        "confirm": "확인",
+        "close": "닫기",
+        "today": "오늘",
+        "noRecord": "기록 없음"
+    },
+    "navigation": {
+        "dashboard": "대시보드",
+        "settings": "설정",
+        "login": "로그인",
+        "logout": "로그아웃"
+    },
+    "login": {
+        "title": "로그인",
+        "description": "Logit 계정으로 로그인하고 오늘의 기록을 시작해 보세요.",
+        "welcomeMessage": "기록이 쌓이면 성장이 보입니다. 오늘의 로그를 시작해 보세요.",
+        "email": "이메일",
+        "password": "비밀번호",
+        "passwordPlaceholder": "비밀번호를 입력하세요",
+        "loginButton": "로그인",
+        "continueWithGitHub": "GitHub로 계속하기"
+    },
+    "dashboard": {
+        "title": "대시보드",
+        "dailyMission": "오늘의 미션",
+        "weeklyItems": "주간 항목",
+        "monthlyCalendar": "월간 캘린더",
+        "gitCalendar": "Git 활동",
+        "weeklyFlow": "이번 주 흐름",
+        "weeklyFlowDescription": "로그 · 커밋 기준으로 한 주의 리듬을 한눈에 봐요.",
+        "weeklyEmptyMessage": "이번 주 기록이 아직 없어요. 오늘 한 일을 간단하게라도 남겨보는 건 어때요?",
+        "monthlyActivityCalendar": "월간 활동 달력",
+        "previousMonth": "이전 달",
+        "nextMonth": "다음 달",
+        "gitActivityHistory": "Git 활동 히스토리",
+        "gitActivityDescription": "지난 30일간의 커밋 활동을 확인해보세요."
+    },
+    "logEditor": {
+        "title": "오늘의 로그",
+        "description": "오늘 했던 일, 느낀 점, 내일의 할 일을 가볍게 적어 보세요.",
+        "titleLabel": "제목",
+        "titlePlaceholder": "오늘의 로그 제목을 입력하세요",
+        "contentPlaceholder": "오늘 하루를 기록해 보세요...",
+        "lineBreakHint": "Shift + Enter 로 줄바꿈",
+        "saveButton": "저장",
+        "saveAction": "저장:"
+    },
+    "settings": {
+        "title": "설정",
+        "description": "앱 설정을 관리하고 개인화하세요.",
+        "generalSettings": "일반 설정",
+        "generalSettingsDescription": "앱 사용에 필요한 기본 설정을 관리하세요.",
+        "accountInfo": "계정 정보",
+        "accountInfoDescription": "현재 로그인한 계정 정보입니다.",
+        "theme": "테마",
+        "themeDescription": "다크 모드와 라이트 모드를 전환할 수 있습니다.",
+        "lightMode": "라이트 모드",
+        "darkMode": "다크 모드",
+        "language": "언어",
+        "korean": "한국어",
+        "english": "English"
+    },
+    "calendar": {
+        "weekDays": {
+            "sun": "일",
+            "mon": "월",
+            "tue": "화",
+            "wed": "수",
+            "thu": "목",
+            "fri": "금",
+            "sat": "토"
+        },
+        "monthFormat": "{year}년 {month}월"
+    },
+    "status": {
+        "both": "둘다",
+        "one": "하나만",
+        "none": "없음"
+    },
+    "git": {
+        "commits": "Commits",
+        "commit": "Commit",
+        "zeroCommits": "0 Commit"
+    }
+}

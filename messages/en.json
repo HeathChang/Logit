@@ -1,0 +1,93 @@
+{
+  "common": {
+    "appName": "Logit",
+    "description": "Growth becomes visible as records accumulate. A personal development log service that records your learning and work, manages GitHub activities in one place, and tracks your growth.",
+    "save": "Save",
+    "saveAction": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "close": "Close",
+    "today": "Today",
+    "noRecord": "No Record"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Login",
+    "description": "Log in with your Logit account and start recording today.",
+    "welcomeMessage": "Growth becomes visible as records accumulate. Start your log today.",
+    "email": "Email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "loginButton": "Login",
+    "continueWithGitHub": "Continue with GitHub"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "dailyMission": "Daily Mission",
+    "weeklyItems": "Weekly Items",
+    "monthlyCalendar": "Monthly Calendar",
+    "gitCalendar": "Git Activity",
+    "weeklyFlow": "This Week's Flow",
+    "weeklyFlowDescription": "See your weekly rhythm at a glance based on logs and commits.",
+    "weeklyEmptyMessage": "No records for this week yet. How about leaving a simple note about what you did today?",
+    "monthlyActivityCalendar": "Monthly Activity Calendar",
+    "previousMonth": "Previous Month",
+    "nextMonth": "Next Month",
+    "gitActivityHistory": "Git Activity History",
+    "gitActivityDescription": "Check your commit activity for the past 30 days."
+  },
+  "logEditor": {
+    "title": "Today's Log",
+    "description": "Write down what you did today, how you felt, and what you plan to do tomorrow.",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Enter today's log title",
+    "contentPlaceholder": "Record your day...",
+    "lineBreakHint": "Shift + Enter for line break",
+    "saveButton": "Save",
+    "saveAction": "Save:"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage and personalize your app settings.",
+    "generalSettings": "General Settings",
+    "generalSettingsDescription": "Manage basic settings needed to use the app.",
+    "accountInfo": "Account Information",
+    "accountInfoDescription": "Information about your currently logged-in account.",
+    "theme": "Theme",
+    "themeDescription": "You can switch between dark mode and light mode.",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "korean": "Korean",
+    "english": "English"
+  },
+  "calendar": {
+    "weekDays": {
+      "sun": "Sun",
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat"
+    },
+    "monthFormat": "{year} {month}"
+  },
+  "status": {
+    "both": "Both",
+    "one": "One",
+    "none": "None"
+  },
+  "git": {
+    "commits": "Commits",
+    "commit": "Commit",
+    "zeroCommits": "0 Commit"
+  }
+}
