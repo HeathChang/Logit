@@ -1,4 +1,8 @@
+"use client";
+
 import { DUAL_STATUS } from "@/shared/type/common.type";
+import { useTranslation } from "react-i18next";
+
 
 export type WeeklyItemProps = {
   /** 예: "01.29 Wed" */
@@ -14,10 +18,11 @@ export const WeeklyItem = ({
   logTitle,
   commitCount,
 }: WeeklyItemProps) => {
+  const { t } = useTranslation();
   const hasCommit = commitCount > 0;
   const hasLog = logTitle != null && logTitle.trim().length > 0;
 
-  const displayTitle = hasLog ? logTitle : "기록 없음";
+  const displayTitle = hasLog ? logTitle : t("common.noRecord");
 
   const statusLabel =
     hasLog && hasCommit
@@ -52,7 +57,7 @@ export const WeeklyItem = ({
 
       {/* Git 활동 요약 */}
       <div className="w-[96px] text-right text-xs text-text-sub">
-        {hasCommit ? `${commitCount} Commits` : "0 Commit"}
+        {hasCommit ? `${commitCount} ${t("git.commits")}` : t("git.zeroCommits")}
       </div>
 
       {/* 상태 신호등 */}

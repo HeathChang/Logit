@@ -41,7 +41,10 @@
     "previousMonth": "Previous Month",
     "nextMonth": "Next Month",
     "gitActivityHistory": "Git Activity History",
-    "gitActivityDescription": "Check your commit activity for the past 30 days."
+    "gitActivityDescription": "Check your commit activity for the past 30 days.",
+    "log": "Log",
+    "git": "Git",
+    "freeToGo": "Free to Go"
   },
   "logEditor": {
     "title": "Today's Log",
@@ -66,7 +69,9 @@
     "darkMode": "Dark Mode",
     "language": "Language",
     "korean": "Korean",
-    "english": "English"
+    "english": "English",
+    "githubUsername": "GitHub Username",
+    "saveButton": "Save"
   },
   "calendar": {
     "weekDays": {

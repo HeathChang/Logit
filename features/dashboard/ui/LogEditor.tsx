@@ -13,6 +13,7 @@ import type { InitialConfigType } from "@lexical/react/LexicalComposer";
 
 import { useEditor } from "@/features/dashboard/model/useEditor";
 import Button from "@/shared/ui/Button";
+import { useTranslation } from "react-i18next";
 
 export interface LogEditorProps {
   initialConfig: InitialConfigType;
@@ -58,16 +59,18 @@ export const LogEditorView = ({
   isSaveEnabled,
   onChangeContent,
 }: LogEditorProps) => {
+
+  const { t } = useTranslation();
   return (
     <section className="h-full w-full">
       <div className="mx-auto flex max-w-5xl flex-col gap-3 rounded-2xl border border-border-main bg-bg-card px-4 py-2 shadow-sm">
         <div className="flex items-baseline justify-between gap-2">
           <div className="flex flex-col">
             <h2 className="text-sm font-semibold tracking-tight text-text-main">
-              오늘의 로그
+              {t("logEditor.title")}
             </h2>
             <p className="text-[11px] text-text-sub">
-              오늘 했던 일, 느낀 점, 내일의 할 일을 가볍게 적어 보세요.
+              {t("logEditor.description")}
             </p>
           </div>
         </div>
@@ -78,14 +81,14 @@ export const LogEditorView = ({
             htmlFor="log-title"
             className="text-xs font-medium text-text-main"
           >
-            제목 <span className="text-status-danger">*</span>
+            {t("logEditor.titleLabel")} <span className="text-status-danger">*</span>
           </label>
           <input
             id="log-title"
             type="text"
             value={title}
             onChange={(event) => onChangeTitle(event.target.value)}
-            placeholder="오늘의 로그 제목을 입력하세요"
+            placeholder={t("logEditor.titlePlaceholder")}
             className="rounded-lg border border-border-main bg-bg-main px-3 py-2 text-sm text-text-main outline-none focus:border-logit-log"
           />
         </div>
@@ -98,7 +101,7 @@ export const LogEditorView = ({
               }
               placeholder={
                 <div className="pointer-events-none absolute left-4 top-3 text-sm text-text-sub">
-                  오늘 하루를 기록해 보세요...
+                  {t("logEditor.contentPlaceholder")}
                 </div>
               }
               ErrorBoundary={LexicalErrorBoundary}
@@ -108,17 +111,16 @@ export const LogEditorView = ({
             <ContentChangePlugin onChange={onChangeContent} />
 
             <div className="mt-2 flex items-center justify-between border-t border-dashed border-border-main pt-2 text-[10px] text-text-sub">
-              <span>Shift + Enter 로 줄바꿈</span>
+              <span>{t("logEditor.lineBreakHint")}</span>
               <Button
                 onClick={onSave}
                 disabled={!isSaveEnabled}
-                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
-                  isSaveEnabled
-                    ? "cursor-pointer bg-status-success text-white hover:opacity-90"
-                    : "cursor-not-allowed bg-bg-main text-text-sub opacity-50"
-                }`}
+                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${isSaveEnabled
+                  ? "cursor-pointer bg-status-success text-white hover:opacity-90"
+                  : "cursor-not-allowed bg-bg-main text-text-sub opacity-50"
+                  }`}
               >
-                저장
+                {t("logEditor.saveButton")}
               </Button>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { DUAL_STATUS } from "@/shared/type/common.type";
 import type { DayStatus } from "../model/useMonthlyCalendar";
 import { useMonthlyCalendar } from "../model/useMonthlyCalendar";
 import Button from "@/shared/ui/Button";
+import { useTranslation } from "react-i18next";
 
 export interface MonthlyCalendarProps {
   monthLabel: string;
@@ -36,7 +37,16 @@ export const MonthlyCalendar = ({
   goToNextMonth,
   goToToday,
 }: MonthlyCalendarProps) => {
-  const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
+  const { t } = useTranslation();
+  const weekDays = [
+    t("calendar.weekDays.sun"),
+    t("calendar.weekDays.mon"),
+    t("calendar.weekDays.tue"),
+    t("calendar.weekDays.wed"),
+    t("calendar.weekDays.thu"),
+    t("calendar.weekDays.fri"),
+    t("calendar.weekDays.sat"),
+  ];
   const today = new Date();
 
   const isToday = (date: Date) => {
@@ -52,13 +62,13 @@ export const MonthlyCalendar = ({
       <header className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-text-main">
-            월간 활동 달력
+            {t("dashboard.monthlyActivityCalendar")}
           </h2>
           <div className="flex items-center gap-2">
             <Button
               onClick={goToPreviousMonth}
               className="rounded p-1 transition-colors hover:bg-bg-main"
-              aria-label="이전 달"
+              aria-label={t("dashboard.previousMonth")}
             >
               <svg
                 width="16"
@@ -80,12 +90,12 @@ export const MonthlyCalendar = ({
               onClick={goToToday}
               className="px-2 py-1 text-xs text-text-sub transition-colors hover:text-text-main"
             >
-              오늘
+              {t("common.today")}
             </Button>
             <Button
               onClick={goToNextMonth}
               className="rounded p-1 transition-colors hover:bg-bg-main"
-              aria-label="다음 달"
+              aria-label={t("dashboard.nextMonth")}
             >
               <svg
                 width="16"
@@ -115,14 +125,14 @@ export const MonthlyCalendar = ({
           className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${showLog ? "bg-logit-log text-white" : "bg-bg-main text-text-sub"
             }`}
         >
-          Log
+          {t("dashboard.log")}
         </Button>
         <Button
           onClick={onToggleGit}
           className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${showGit ? "bg-logit-git text-white" : "bg-bg-main text-text-sub"
             }`}
         >
-          Git
+          {t("dashboard.git")}
         </Button>
       </div>
 

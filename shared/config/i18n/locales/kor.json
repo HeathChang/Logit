@@ -41,7 +41,10 @@
         "previousMonth": "이전 달",
         "nextMonth": "다음 달",
         "gitActivityHistory": "Git 활동 히스토리",
-        "gitActivityDescription": "지난 30일간의 커밋 활동을 확인해보세요."
+        "gitActivityDescription": "지난 30일간의 커밋 활동을 확인해보세요.",
+        "log": "Log",
+        "git": "Git",
+        "freeToGo": "Free to Go"
     },
     "logEditor": {
         "title": "오늘의 로그",
@@ -66,7 +69,9 @@
         "darkMode": "다크 모드",
         "language": "언어",
         "korean": "한국어",
-        "english": "English"
+        "english": "English",
+        "githubUsername": "GitHub 사용자명",
+        "saveButton": "저장하기"
     },
     "calendar": {
         "weekDays": {

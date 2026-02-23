@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
+
 interface SettingFormProps {
     githubUsername: string;
     language: string;
@@ -13,6 +15,7 @@ export const SettingForm = ({
     onGithubUsernameChange,
     onLanguageChange,
 }: SettingFormProps) => {
+    const { t } = useTranslation();
     return (
         <form className="flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
@@ -20,7 +23,7 @@ export const SettingForm = ({
                     htmlFor="setting-github-username"
                     className="text-xs font-medium text-text-main"
                 >
-                    GitHub Username
+                    {t("settings.githubUsername")}
                 </label>
                 <input
                     id="setting-github-username"
@@ -37,7 +40,7 @@ export const SettingForm = ({
                     htmlFor="setting-language"
                     className="text-xs font-medium text-text-main"
                 >
-                    언어
+                    {t("settings.language")}
                 </label>
                 <select
                     id="setting-language"
@@ -45,8 +48,8 @@ export const SettingForm = ({
                     onChange={(e) => onLanguageChange(e.target.value)}
                     className="h-9 rounded-lg border border-border-main bg-bg-main px-3 text-sm text-text-main outline-none transition-colors focus:border-logit-log"
                 >
-                    <option value="ko">한국어</option>
-                    <option value="en">English</option>
+                    <option value="ko">{t("settings.korean")}</option>
+                    <option value="en">{t("settings.english")}</option>
                 </select>
             </div>
         </form>

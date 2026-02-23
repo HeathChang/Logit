@@ -1,3 +1,4 @@
+"use client";
 type TraceItem = {
   /** 예: "01.29 Wed" */
   dateLabel: string;
@@ -13,6 +14,7 @@ export type WeeklyItemsProps = {
 
 import { DUAL_STATUS } from "@/shared/type/common.type";
 import { WeeklyItem } from "./WeeklyItem";
+import { useTranslation } from "react-i18next";
 
 const DEFAULT_WEEKLY_ITEMS: TraceItem[] = [
   {
@@ -38,13 +40,14 @@ const DEFAULT_WEEKLY_ITEMS: TraceItem[] = [
 ];
 
 export const WeeklyItems = ({ items = DEFAULT_WEEKLY_ITEMS }: WeeklyItemsProps) => {
+  const { t } = useTranslation();
   return (
     <section className="w-full rounded-xl bg-bg-card p-4 shadow-sm">
       <header className="mb-3 flex items-center justify-between">
         <div>
-          <h2 className="text-sm font-semibold text-text-main">이번 주 흐름</h2>
+          <h2 className="text-sm font-semibold text-text-main">{t("dashboard.weeklyFlow")}</h2>
           <p className="text-xs text-text-sub">
-            로그 · 커밋 기준으로 한 주의 리듬을 한눈에 봐요.
+            {t("dashboard.weeklyFlowDescription")}
           </p>
         </div>
 
@@ -78,7 +81,7 @@ export const WeeklyItems = ({ items = DEFAULT_WEEKLY_ITEMS }: WeeklyItemsProps) 
           })
         ) : (
           <div className="py-4 text-center text-xs text-text-sub">
-            이번 주 기록이 아직 없어요. 오늘 한 일을 간단하게라도 남겨보는 건 어때요?
+            {t("dashboard.weeklyEmptyMessage")}
           </div>
         )}
       </div>

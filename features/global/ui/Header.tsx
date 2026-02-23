@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { IconMoon, IconSettings, IconSun, IconUser, IconRefresh } from "@tabler/icons-react";
 import { useTheme } from "@/shared/config/theme/ThemeProvider";
 import Button from "@/shared/ui/Button";
+import { useTranslation } from "react-i18next";
 
 export interface HeaderProps {
   isDark: boolean;
@@ -14,10 +15,11 @@ export interface HeaderProps {
 }
 
 export const Header = ({ isDark, onToggleTheme, onClickLogin, onClickSetting, onClickRefresh }: HeaderProps) => {
+  const { t } = useTranslation();
   return (
     <header className="w-full border-b border-border-main bg-bg-card/80 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:h-16 sm:px-6">
-        <div className="text-lg font-semibold text-text-main">Logit</div>
+        <div className="text-lg font-semibold text-text-main">{t("common.appName")}</div>
         <div className="flex items-center gap-4">
           <Button
             onClick={onClickRefresh}

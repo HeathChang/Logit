@@ -4,8 +4,10 @@ import { useState } from "react";
 import { SettingForm } from "@/features/setting/ui/SettingForm";
 import { UserInfo } from "@/features/setting/ui/UserInfo";
 import Button from "@/shared/ui/Button";
+import { useTranslation } from "react-i18next";
 
 const SettingPage = () => {
+    const { t } = useTranslation();
     // TODO: 실제 로그인 상태와 유저 정보는 나중에 인증 로직과 연동
     const [isLoggedIn] = useState(false); // 임시로 false, 실제로는 인증 상태에서 가져옴
     const [userInfo] = useState<{
@@ -27,10 +29,10 @@ const SettingPage = () => {
             <div className="mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-4 py-10">
                 <div className="mb-6 text-center">
                     <h1 className="text-xl font-semibold text-text-main">
-                        설정
+                        {t("settings.title")}
                     </h1>
                     <p className="mt-1 text-xs text-text-sub">
-                        앱 설정을 관리하고 개인화하세요.
+                        {t("settings.description")}
                     </p>
                 </div>
 
@@ -40,10 +42,10 @@ const SettingPage = () => {
                         <section className="rounded-2xl border border-border-main bg-bg-card px-6 py-6 shadow-sm">
                             <header className="mb-4">
                                 <h2 className="text-lg font-semibold text-text-main">
-                                    계정 정보
+                                    {t("settings.accountInfo")}
                                 </h2>
                                 <p className="mt-1 text-xs text-text-sub">
-                                    현재 로그인한 계정 정보입니다.
+                                    {t("settings.accountInfoDescription")}
                                 </p>
                             </header>
                             <UserInfo
@@ -58,10 +60,10 @@ const SettingPage = () => {
                     <section className="rounded-2xl border border-border-main bg-bg-card px-6 py-8 shadow-sm">
                         <header className="mb-6">
                             <h2 className="text-lg font-semibold text-text-main">
-                                일반 설정
+                                {t("settings.generalSettings")}
                             </h2>
                             <p className="mt-1 text-xs text-text-sub">
-                                앱 사용에 필요한 기본 설정을 관리하세요.
+                                {t("settings.generalSettingsDescription")}
                             </p>
                         </header>
 
@@ -79,7 +81,7 @@ const SettingPage = () => {
                             onClick={handleSave}
                             className="h-9 rounded-lg bg-logit-log px-6 text-xs font-semibold text-white shadow-sm transition-colors hover:opacity-90"
                         >
-                            저장하기
+                            {t("settings.saveButton")}
                         </Button>
                     </div>
                 </div>
