@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/app/styles/globals.css";
 import { ThemeProvider } from "@/shared/config/theme/ThemeProvider";
+import I18nProvider from "@/shared/providers/I18nProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,9 +25,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} min-h-screen bg-bg-main font-sans text-text-main transition-colors duration-300`}
       >
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <I18nProvider>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </I18nProvider>
       </body>
     </html>
   );
