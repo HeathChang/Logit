@@ -63,7 +63,7 @@ export const LogEditorView = ({
   const { t } = useTranslation();
   return (
     <section className="h-full w-full">
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 rounded-2xl border border-border-main bg-bg-card px-4 py-2 shadow-sm">
+      <div className="mx-auto flex max-w-5xl flex-col gap-3 rounded-2xl border border-border-main bg-bg-card px-8 py-6 shadow-sm h-120">
         <div className="flex items-baseline justify-between gap-2">
           <div className="flex flex-col">
             <h2 className="text-sm font-semibold tracking-tight text-text-main">

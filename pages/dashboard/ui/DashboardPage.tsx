@@ -10,14 +10,14 @@ const DashboardPage = () => {
         <div className="min-h-screen bg-bg-main">
             <div className="w-full max-w-7xl mx-auto px-4 py-6">
                 <div className="flex gap-6 justify-center">
-                    <main className="min-w-[720px] flex flex-col gap-6 ">
+                    <main className="min-w-[720px] flex flex-col">
                         <div className="">
                             <DailyMission />
                         </div>
-                        <div className="h-100">
+                        <div className="mt-4">
                             <LogEditorContainer />
                         </div>
-                        <div className="">
+                        <div className="mt-4">
                             <WeeklyItems />
                         </div>
                     </main>

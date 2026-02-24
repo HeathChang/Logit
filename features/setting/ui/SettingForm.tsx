@@ -46,7 +46,7 @@ export const SettingForm = ({
                     id="setting-language"
                     value={language}
                     onChange={(e) => onLanguageChange(e.target.value)}
-                    className="h-9 rounded-lg border border-border-main bg-bg-main px-3 text-sm text-text-main outline-none transition-colors focus:border-logit-log"
+                    className="h-9 rounded-lg border border-border-main bg-bg-main px-3 text-sm text-text-main outline-none transition-colors focus:border-logit-log cursor-pointer"
                 >
                     <option value="ko">{t("settings.korean")}</option>
                     <option value="en">{t("settings.english")}</option>

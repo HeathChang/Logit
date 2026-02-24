@@ -42,7 +42,7 @@ const DEFAULT_WEEKLY_ITEMS: TraceItem[] = [
 export const WeeklyItems = ({ items = DEFAULT_WEEKLY_ITEMS }: WeeklyItemsProps) => {
   const { t } = useTranslation();
   return (
-    <section className="w-full rounded-xl bg-bg-card p-4 shadow-sm">
+    <section className="w-full rounded-xl bg-bg-card px-8 py-6 shadow-sm">
       <header className="mb-3 flex items-center justify-between">
         <div>
           <h2 className="text-sm font-semibold text-text-main">{t("dashboard.weeklyFlow")}</h2>
