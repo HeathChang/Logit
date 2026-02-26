@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,6 +8,7 @@ import Button from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
 import { IconUser } from "@tabler/icons-react";
 import _ from 'lodash';
+import GitApi from "@/shared/api/apis/GitApi";
 
 const SettingPage = () => {
     const { t } = useTranslation();
@@ -19,17 +21,28 @@ const SettingPage = () => {
     } | null>(null); // 임시로 null, 실제로는 인증 상태에서 가져옴
 
     const [githubUsername, setGithubUsername] = useState("");
+    const [gitUserInfo, setGitUserInfo] = useState<any | null>(null);
     const [language, setLanguage] = useState("ko");
     const [isGithubUsernameValid, setIsGithubUsernameValid] = useState(false);
 
     useEffect(() => {
         // 입력 완료 후, 1초 후 GIT API 호출을 통해 유저 정보 조회
-        const debounced = _.debounce(() => {
-            console.log("Github username:", githubUsername);
-        }, 3000);
+        const debounced = _.debounce(async () => {
+            const result = await GitApi.getGitUserInfo(githubUsername);
+            if (result.status === 200) {
+                setIsGithubUsernameValid(true);
+                setGitUserInfo(result.data);
+            } else {
+                setIsGithubUsernameValid(false);
+                setGitUserInfo(null);
+            }
+        }, 1000);
+
         debounced();
         return () => debounced.cancel();
     }, [githubUsername]);
+
+
 
     const handleSave = () => {
         // TODO: 저장 로직은 나중에 추가
@@ -96,35 +109,71 @@ const SettingPage = () => {
                                 입력한 깃의 계정을 통해 커밋 활동을 조회합니다.
                             </p>
                         </header>
-                        {
-                            githubUsername && (
-                                <div className="flex flex-col gap-2">
-                                    <div className="flex items-center gap-2">
-                                        {/* 깃허브 유저 프로필 이미지 */}
-                                        <img src={`https://github.com/${githubUsername}.png`} alt={githubUsername} className="w-30 h-30 rounded-full" />
+                        {gitUserInfo && (
+                            <div className="flex flex-col gap-3">
+                                <div className="flex items-center gap-4">
+                                    {/* 깃허브 유저 프로필 이미지 */}
+                                    {gitUserInfo.avatar_url ? (
+                                        <img
+                                            src={gitUserInfo.avatar_url}
+                                            alt={githubUsername}
+                                            className="h-20 w-20 rounded-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-bg-main text-text-sub">
+                                            <IconUser size={32} />
+                                        </div>
+                                    )}
 
-                                        <div className="flex flex-col gap-1 ml-4">
-                                            {/* 깃 허브 유저 프로필 이름  */}
-                                            <div className="text-lg font-semibold text-text-main">
-                                                {githubUsername}
+                                    <div className="flex flex-col gap-1">
+                                        <div className="flex flex-row gap-1 items-center">
+                                            <div className="text-base font-semibold text-text-main">
+                                                {gitUserInfo.name}
                                             </div>
 
-                                            {/* 깃 허브 프로필 링크 */}
-                                            <div className="text-xs text-text-sub">
-                                                <a
-                                                    href={`https://github.com/${githubUsername}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="underline underline-offset-2"
-                                                >
-                                                    github.com/{githubUsername}
-                                                </a>
+                                            {/* 깃허브 유저 아이디 */}
+                                            <div className="text-sm font-medium text-text-main">
+                                                @{gitUserInfo.login ?? githubUsername}
                                             </div>
+                                        </div>
+
+                                        {/* 깃허브 프로필 링크 */}
+                                        <div className="text-xs text-text-sub">
+                                            <a
+                                                href={gitUserInfo.html_url ?? `https://github.com/${githubUsername}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="underline underline-offset-2"
+                                            >
+                                                {gitUserInfo.html_url ?? `https://github.com/${githubUsername}`}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                            )
-                        }
+
+                                {/* 레포지토리 / 팔로워 / 팔로잉 정보 */}
+                                <div className="mt-2 flex flex-wrap gap-4 text-xs text-text-sub">
+                                    <span>
+                                        <span className="font-semibold text-text-main">
+                                            {gitUserInfo.public_repos}
+                                        </span>{" "}
+                                        공개 레포지토리
+                                    </span>
+                                    <span>
+                                        <span className="font-semibold text-text-main">
+                                            {gitUserInfo.followers}
+                                        </span>{" "}
+                                        팔로워
+                                    </span>
+                                    <span>
+                                        <span className="font-semibold text-text-main">
+                                            {gitUserInfo.following}
+                                        </span>{" "}
+                                        팔로잉
+                                    </span>
+                                </div>
+                            </div>
+                        )}
                     </section>
 
                     {/* 저장 버튼 */}
