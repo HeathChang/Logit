@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SettingForm } from "@/features/setting/ui/SettingForm";
 import { UserInfo } from "@/features/setting/ui/UserInfo";
 import Button from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
 import { IconUser } from "@tabler/icons-react";
-import _ from 'lodash';
-import GitApi from "@/shared/api/apis/GitApi";
+import { useGithubUser } from "@/features/setting/hooks/useGithubUser";
 
 const SettingPage = () => {
     const { t } = useTranslation();
@@ -20,27 +18,14 @@ const SettingPage = () => {
         avatarUrl?: string;
     } | null>(null); // 임시로 null, 실제로는 인증 상태에서 가져옴
 
-    const [githubUsername, setGithubUsername] = useState("");
-    const [gitUserInfo, setGitUserInfo] = useState<any | null>(null);
+    const {
+        githubUsername,
+        setGithubUsername,
+        gitUserInfo,
+        isGithubUsernameValid,
+    } = useGithubUser();
+
     const [language, setLanguage] = useState("ko");
-    const [isGithubUsernameValid, setIsGithubUsernameValid] = useState(false);
-
-    useEffect(() => {
-        // 입력 완료 후, 1초 후 GIT API 호출을 통해 유저 정보 조회
-        const debounced = _.debounce(async () => {
-            const result = await GitApi.getGitUserInfo(githubUsername);
-            if (result.status === 200) {
-                setIsGithubUsernameValid(true);
-                setGitUserInfo(result.data);
-            } else {
-                setIsGithubUsernameValid(false);
-                setGitUserInfo(null);
-            }
-        }, 1000);
-
-        debounced();
-        return () => debounced.cancel();
-    }, [githubUsername]);
 
 
 
@@ -109,7 +94,7 @@ const SettingPage = () => {
                                 입력한 깃의 계정을 통해 커밋 활동을 조회합니다.
                             </p>
                         </header>
-                        {gitUserInfo && (
+                        {gitUserInfo ? (
                             <div className="flex flex-col gap-3">
                                 <div className="flex items-center gap-4">
                                     {/* 깃허브 유저 프로필 이미지 */}
@@ -173,6 +158,10 @@ const SettingPage = () => {
                                     </span>
                                 </div>
                             </div>
+                        ) : (
+                            <p className="text-xs text-text-sub">
+                                아직 조회된 깃 계정 정보가 없습니다. 위에서 깃허브 아이디를 입력하면 자동으로 조회됩니다.
+                            </p>
                         )}
                     </section>
 
