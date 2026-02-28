@@ -7,6 +7,7 @@ import Button from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
 import { IconUser } from "@tabler/icons-react";
 import { useGithubUser } from "@/features/setting/hooks/useGithubUser";
+import { useLanguage } from "@/shared/hooks/useLanguage";
 
 const SettingPage = () => {
     const { t } = useTranslation();
@@ -25,7 +26,7 @@ const SettingPage = () => {
         isGithubUsernameValid,
     } = useGithubUser();
 
-    const [language, setLanguage] = useState("ko");
+    const { language } = useLanguage();
 
 
 
@@ -79,9 +80,7 @@ const SettingPage = () => {
 
                         <SettingForm
                             githubUsername={githubUsername}
-                            language={language}
                             onGithubUsernameChange={setGithubUsername}
-                            onLanguageChange={setLanguage}
                         />
                     </section>
 
