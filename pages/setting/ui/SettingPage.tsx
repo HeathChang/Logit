@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { IconUser } from "@tabler/icons-react";
 import { useGithubUser } from "@/features/setting/hooks/useGithubUser";
 import { useLanguage } from "@/shared/hooks/useLanguage";
+import Swal from "sweetalert2";
 
 const SettingPage = () => {
     const { t } = useTranslation();
@@ -24,6 +25,7 @@ const SettingPage = () => {
         setGithubUsername,
         gitUserInfo,
         isGithubUsernameValid,
+
     } = useGithubUser();
 
     const { language } = useLanguage();
@@ -31,8 +33,27 @@ const SettingPage = () => {
 
 
     const handleSave = () => {
-        // TODO: 저장 로직은 나중에 추가
-        console.log("Settings saved:", { githubUsername, language });
+        // TODO:: localStorage에 설정값 저장 (추후 API로 전환 예정)
+        try {
+            localStorage.setItem("settings.githubUsername", githubUsername || "");
+            localStorage.setItem("settings.language", language);
+            Swal.fire({
+                title: '저장 완료!',
+                text: '설정이 저장되었습니다.',
+                icon: 'success',
+                confirmButtonText: '확인'
+            });
+        } catch (error) {
+            console.error("Failed to save settings to localStorage:", error);
+            Swal.fire({
+                title: '저장 실패!',
+                text: '설정이 저장되지 않았습니다.',
+                icon: 'error',
+                confirmButtonText: '확인'
+            });
+        }
+
+
     };
 
     return (
@@ -93,6 +114,7 @@ const SettingPage = () => {
                                 입력한 깃의 계정을 통해 커밋 활동을 조회합니다.
                             </p>
                         </header>
+
                         {gitUserInfo ? (
                             <div className="flex flex-col gap-3">
                                 <div className="flex items-center gap-4">
@@ -159,7 +181,7 @@ const SettingPage = () => {
                             </div>
                         ) : (
                             <p className="text-xs text-text-sub">
-                                아직 조회된 깃 계정 정보가 없습니다. 위에서 깃허브 아이디를 입력하면 자동으로 조회됩니다.
+                                조회된 깃 계정 정보가 없습니다. 올바른 깃허브 아이디를 입력해주세요.
                             </p>
                         )}
                     </section>
@@ -167,7 +189,7 @@ const SettingPage = () => {
                     {/* 저장 버튼 */}
                     <div className="flex justify-end">
                         <Button
-                            disabled={isGithubUsernameValid}
+                            disabled={!isGithubUsernameValid}
                             onClick={handleSave}
                             className="h-9 rounded-lg bg-logit-log px-6 text-xs font-semibold text-white shadow-sm transition-colors hover:opacity-90 cursor-pointer"
                         >

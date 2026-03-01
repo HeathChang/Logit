@@ -29,6 +29,7 @@ export const SettingForm = ({
                     value={githubUsername}
                     onChange={(e) => onGithubUsernameChange(e.target.value)}
                     placeholder="your-github-username"
+                    autoComplete="off"
                     className="h-9 rounded-lg border border-border-main bg-bg-main px-3 text-sm text-text-main outline-none transition-colors focus:border-logit-log"
                 />
             </div>

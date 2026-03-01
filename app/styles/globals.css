@@ -58,6 +58,6 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--logit-log-primary);
+  /* background: var(--logit-log-primary); */
   border-radius: 10px;
 }

@@ -20,6 +20,7 @@ export const useGithubUser = (initialUsername = "") => {
   const [gitUserInfo, setGitUserInfo] = useState<GithubUser | null>(null);
   const [isGithubUsernameValid, setIsGithubUsernameValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  
 
   useEffect(() => {
     if (!githubUsername) {
