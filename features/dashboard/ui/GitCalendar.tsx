@@ -5,16 +5,12 @@ import "react-calendar-heatmap/dist/styles.css";
 
 import { useGitCalendar } from "../model/useGitCalendar";
 import { useTranslation } from "react-i18next";
-
-export interface GitCalendarValue {
-  date: string;
-  count: number;
-}
+import { GitCalendarPoint, useGithubActivity } from "../model/useGithubActivity";
 
 export interface GitCalendarProps {
   startDate: Date;
   endDate: Date;
-  values: GitCalendarValue[];
+  values: GitCalendarPoint[];
   onClickDate: (value: unknown) => void;
   onMouseOver?: (value: unknown) => void;
 }
@@ -27,6 +23,7 @@ export const GitCalendar = ({
   onMouseOver,
 }: GitCalendarProps) => {
   const { t } = useTranslation();
+
   return (
     <section className="w-full rounded-xl bg-bg-card p-4 shadow-sm">
       <header className="mb-4">

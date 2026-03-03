@@ -21,6 +21,16 @@ export const useGithubUser = (initialUsername = "") => {
   const [isGithubUsernameValid, setIsGithubUsernameValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
+  useEffect(() => {
+    const savedUsername =
+      localStorage.getItem("settings.githubUsername") ??
+      "";
+
+    if (savedUsername) {
+      setGithubUsername(savedUsername);
+    }
+  }, []);
+
 
   useEffect(() => {
     if (!githubUsername) {
