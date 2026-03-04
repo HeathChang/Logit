@@ -4,7 +4,11 @@ class Http {
     private http: AxiosInstance;
 
     constructor() {
-        this.http = axios.create();
+        this.http = axios.create({
+            headers: {
+                Authorization: process.env.NEXT_PUBLIC_GITHUB_TOKEN ?? "",
+            },
+        });
         this.http.interceptors.request.use(this.handleRequest);
         this.http.interceptors.response.use(this.handleSuccess, this.handleError);
     }

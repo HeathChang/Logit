@@ -27,8 +27,8 @@ const DashboardPage = () => {
 
                     <aside className="hidden min-[1080px]:block w-80 flex-shrink-0 sticky top-0 self-start h-100">
                         <div className="flex flex-col gap-6">
-                            {/* <GitCalendarContainer />
-                            <MonthlyCalendarContainer /> */}
+                            <GitCalendarContainer />
+                            <MonthlyCalendarContainer />
                         </div>
                     </aside>
                 </div>

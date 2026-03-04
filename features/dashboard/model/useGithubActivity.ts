@@ -90,8 +90,8 @@ export const useGithubActivity = () => {
     const [events, setEvents] = useState<GithubPushEvent[]>([]);
     const [commits, setCommits] = useState<GithubCommit[]>([]);
 
-    const endDate = useMemo(() => new Date(), []);
-    const startDate = useMemo(() => getThreeMonthsAgo(endDate), [endDate]);
+    const [endDate] = useState(() => new Date());
+    const [startDate] = useState(() => getThreeMonthsAgo(endDate));
 
     useEffect(() => {
         const targetUsername = typeof window !== "undefined"
@@ -166,7 +166,7 @@ export const useGithubActivity = () => {
 
                 // 3. Events API도 병행하여 사용 (추가 데이터 수집)
                 const allEvents: GithubPushEvent[] = [];
-                
+
                 for (let page = 1; page <= MAX_EVENT_PAGES; page += 1) {
                     const response = await GitApi.getUserEvents(username, page, EVENT_PAGE_SIZE);
                     const pageEvents = (response.data ?? []) as GithubPushEvent[];
