@@ -1,84 +1,194 @@
-# 📔 Logit: Daily Log & Git Activity 초기 기획서
+## 📔 Logit
 
-> **"기록이 쌓이면 성장이 보입니다."**
+> **"기록이 쌓이면 성장이 보입니다."**  
 > 나의 학습과 작업을 기록하고, GitHub 활동을 한곳에서 관리하며 성장을 추적하는 개인 개발 로그 서비스.
 
 ---
 
-## 🎯 1. 프로젝트 목적
+## 🎯 프로젝트 소개
 
-Logit은 Next.js App Router와 Feature-Sliced Design(FSD) 아키텍처를 학습하고 실전에 적용하기 위한 프로젝트입니다.
-단순한 CRUD 앱을 넘어, 구조 중심의 설계와 개발자 친화적인 UX를 구현하는 것이 목표입니다.
+**Logit**은 Next.js(App Router)와 Feature-Sliced Design(FSD) 아키텍처를 학습·실전 적용하기 위한 사이드 프로젝트입니다.  
+일일 로그 작성과 GitHub 커밋 활동을 함께 보여주어, 개발자의 **작업량과 성장 곡선**을 직관적으로 확인할 수 있도록 돕습니다.
 
--   **FSD 아키텍처 체득**: 레이어 간의 명확한 역할 분담을 통한 유지보수 용이성 확보.
--   **Local-First 전략**: `localStorage`를 활용하여 빠른 초기 응답성 및 오프라인 접근성 확보. (향후 Server Action으로 확장)
--   **Data Visualization**: 나의 작업량과 Git 커밋량을 시각적으로 연결하여 성취감 부여.
--   **개발자 친화적 UX**: 마크다운 에디터, 직관적인 상태 표시, 일관된 디자인 시스템.
-
----
-
-## 🛠 2. 주요 기술 스택
-
--   **Framework**: Next.js (App Router)
--   **Language**: TypeScript
--   **Architecture**: Feature-Sliced Design (FSD)
--   **Styling**: Tailwind CSS (with PostCSS)
--   **State / Storage**: `localStorage` (1차 구현)
--   **Editor**: (추후 결정, e.g., React SimpleMDE or Toast UI Editor)
--   **API 연동 (예정)**: GitHub REST API
+- **FSD 아키텍처 적용**: `app/`, `features/`, `entities/`, `shared/` 레이어 분리
+- **Local-First 전략**: `localStorage` 기반 로그 저장 (추후 서버 연동 확장 예정)
+- **GitHub 활동 시각화**: 커밋/이벤트/리포지토리 정보를 활용한 달력 및 대시보드
+- **개발자 친화 UX**: 에디터, 주간/월간 뷰, 상태 뱃지 등
 
 ---
 
-## ✨ 3. 핵심 기능 (MVP + 확장 기능)
+## 🛠 기술 스택
 
-### 3.1. 일일 미션 대시보드 (Daily Mission Dashboard)
--   **Log Check**: 오늘의 기록(Log) 작성 여부 표시 (`RECORD` / `EMPTY`).
--   **Git Check**: 오늘의 GitHub 커밋 활동 여부 표시 (`COMMIT` / `IDLE`).
--   **Free To Go!**: Log 및 Git 미션 모두 완료 시 활성화되는 성취감 버튼.
--   **Log + Git Streak**: 연속 기록 일수를 뱃지 형태로 표시하여 동기 부여.
-
-### 3.2. 오늘의 작업 공간 (Today's Workspace)
--   **마크다운 에디터**: 제목, 본문(Markdown) 작성 및 실시간 프리뷰.
--   **태그 입력**: 로그에 관련 태그를 추가하여 분류 및 검색 용이.
--   **즉시 저장**: `localStorage`에 로그 데이터 자동 저장/수동 저장.
-
-### 3.3. 주간 기록 추적 (Weekly Trace)
--   **요일별 상태 요약**: 지난 7일간의 Log 및 Git 활동 상태를 간결하게 표시.
--   **로그 제목 및 커밋 메시지**: 각 날짜의 주요 로그 제목과 대표 커밋 메시지 요약.
-
-### 3.4. 월별 활동 개요 (Monthly Overview)
--   **월별 달력**: 1080px 이상 해상도에서만 표시되는 월간 달력.
--   **활동 표시**: 각 날짜에 Log (`RECORD`) 및 Git (`COMMIT`) 활동 여부를 시각적으로 표시.
--   **확장**: 날짜 클릭 시 해당 날짜의 상세 기록 조회.
+- **Framework**: Next.js `16.x` (App Router)
+- **Language**: TypeScript
+- **Architecture**: Feature-Sliced Design (FSD)
+- **Styling**: Tailwind CSS v4, CSS
+- **State / Storage**: Redux Toolkit, RTK Query, `localStorage`
+- **HTTP / API**
+  - GitHub REST API
+  - `axios` 기반 공통 HTTP 클라이언트 (`shared/api/http.ts`)
+  - RTK Query 기반 GitHub API 래퍼 (`shared/api/rtk/gitApi.ts`)
+- **i18n**: `i18next`, `react-i18next`
+- **테스트 / 품질**: ESLint, Vitest, Storybook
 
 ---
 
-## 4. 🎨 디자인 시스템 및 상태 용어
+## 📂 주요 디렉토리 구조
 
-### 4.1. 컬러 팔레트 (Light/Dark Mode)
--   **Primary (Log)**: `#7F5AF0` (Light) / `#8257E6` (Dark) - 보라색 계열
--   **Secondary (Git)**: `#2CB67D` (Light) / `#50FA7B` (Dark) - 초록색 계열
--   **Accent (Success/CTA)**: `#FF8A50` (Light) / `#FF8A65` (Dark) - 주황색 계열
-
-### 4.2. 핵심 상태 용어
--   **Log**: `RECORD` (작성 완료) / `EMPTY` (미작성)
--   **Activity**: `COMMIT` (커밋 완료) / `IDLE` (미활동)
--   **조합 상태**: `FREE_TO_GO` (모두 완료) / `SEED` (Log만 완료) / `ACTED` (Git만 완료) / `REST` (모두 미완료)
-
----
-
-## 5. 🚀 개발 로드맵 (Phase 1)
-
-1.  **FSD 초기 환경 설정**: Next.js 프로젝트 생성 및 FSD 디렉토리 구조 초기화.
-2.  **컬러 시스템 적용**: Tailwind CSS 설정 파일에 정의된 컬러 팔레트 적용 (다크 모드 지원).
-3.  **`shared/api/localStorage` 모듈 구현**: `Log` 데이터 저장을 위한 공통 LocalStorage 유틸리티.
-4.  **`entities/log` 데이터 모델 정의**: `Log` 인터페이스 및 상태 관리 로직 (`RECORD`, `EMPTY`).
-5.  **Today's Workspace (에디터)** 구현: 마크다운 에디터 컴포넌트 및 `localStorage` 연동 저장 기능.
-6.  **Daily Mission Dashboard** 구현: `Log Check` 상태 표시 및 UI 연결.
+- **`app/`**
+  - `dashboard/`, `login/`, `setting/` 등 라우팅 엔트리
+- **`features/`**
+  - `dashboard/` – 대시보드, 주간/월간 기록, Git Calendar 등 UI & 로직
+  - `login/` – 로그인 폼 UI
+  - `setting/` – 설정 페이지, GitHub 사용자 설정
+  - `global/` – 공통 헤더 등
+- **`entities/`**
+  - `git/` – Git, 커밋, 활동 관련 타입
+  - `log/` – 로그 엔티티 타입
+- **`shared/`**
+  - `api/` – GitHub API 연동 (`apis/GitApi.ts`, `rtk/gitApi.ts`, `http.ts`)
+  - `config/` – i18n, 테마
+  - `providers/` – 전역 Store, I18n Provider
+  - `store/` – Redux store 설정
+  - `ui/` – 버튼, 카드 등 공용 컴포넌트
 
 ---
 
+## 🚀 시작하기
 
-## 6. 기술 스택
+### 1. 사전 요구 사항
 
+- **Node.js**: 권장 LTS (예: 20.x 이상)
+- **패키지 매니저**: `npm` 또는 `yarn`
+
+### 2. 설치
+
+```bash
+# 프로젝트 루트로 이동
+cd /Users/null_ong2/Documents/heath/programming/projects/Logit/fe
+
+# 패키지 설치 (하나만 선택)
+npm install
+# 또는
+yarn install
+```
+
+### 3. 환경 변수 설정 (중요: Git PWA Token / GitHub Token)
+
+프로젝트는 GitHub API 호출 시 **`NEXT_PUBLIC_GITHUB_TOKEN`** 환경 변수를 사용합니다.  
+이 값이 없으면 GitHub API **요청이 제한(레이트 리미트)** 되거나, 일부 요청이 실패할 수 있습니다.
+
+1. 프로젝트 루트에 `.env.local` 파일 생성  
+2. 아래 예시처럼 GitHub Personal Access Token을 설정
+
+```env
+# Authorization 헤더로 그대로 사용되므로 "token " 접두사를 함께 넣어야 합니다.
+NEXT_PUBLIC_GITHUB_TOKEN=token ghp_your_personal_access_token_here
+```
+
+> ⚠️ **주의**
+> - 코드에서 `Authorization` 헤더에 **env 값을 그대로** 넣기 때문에  
+>   반드시 `token ghp_...` 형태로 작성해야 합니다.
+> - `NEXT_PUBLIC_` 접두사가 붙은 변수는 **브라우저로 노출**되므로,  
+>   **권한을 최소화한 토큰**만 사용하고, 필요 시 언제든 폐기/재발급할 수 있는 토큰을 쓰는 것을 권장합니다.
+
+#### Git PWA Token (GitHub Personal Access Token) 발급 방법
+
+1. GitHub 로그인 후 우측 상단 프로필 → **Settings**  
+2. 좌측 메뉴 하단 **Developer settings** 클릭  
+3. **Personal access tokens** 메뉴 선택  
+   - 간단히 테스트 용도라면 **“Tokens (classic)”**로 발급해도 무방  
+4. **Generate new token** 클릭  
+5. 토큰 이름 및 만료 기간 설정 (예: `logit-local-pwa-token`, 30일 등)  
+6. 권한(Scopes) 선택 – 이 프로젝트에서는 **공개 정보 조회** 위주이므로:
+   - `read:user`
+   - `public_repo` (또는 필요한 최소 repo 권한)
+7. 토큰 생성 후 한 번만 보이므로, 값을 복사해서 `.env.local`에 아래처럼 저장
+
+```env
+NEXT_PUBLIC_GITHUB_TOKEN=token ghp_...복사한_토큰_값...
+```
+
+8. `.env.local`은 **절대 Git에 커밋하지 않도록** `.gitignore`를 유지합니다.
+
+---
+
+## 📡 GitHub API 연동 개요
+
+- **RTK Query 기반 API (`shared/api/rtk/gitApi.ts`)**
+  - `baseUrl`: `https://api.github.com`
+  - `prepareHeaders`에서 `process.env.NEXT_PUBLIC_GITHUB_TOKEN`을 읽어 `Authorization` 헤더 설정
+  - 제공 엔드포인트:
+    - `getGitUserInfo` – `/users/{username}`
+    - `getUserEvents` – `/users/{username}/events/public`
+    - `getUserRepos` – `/users/{username}/repos`
+    - `getRepoCommits` – `/repos/{owner}/{repo}/commits`
+- **Axios 기반 API (`shared/api/apis/GitApi.ts`)**
+  - 공통 Http 클라이언트(`shared/api/http.ts`)를 상속
+  - 동일하게 `Authorization: process.env.NEXT_PUBLIC_GITHUB_TOKEN` 헤더를 사용
+
+---
+
+## 📊 주요 기능 요약
+
+- **Daily Mission Dashboard**
+  - 오늘의 Log 작성 여부 (`RECORD` / `EMPTY`)
+  - 오늘의 GitHub 커밋 활동 (`COMMIT` / `IDLE`)
+  - 모든 미션 완료 시 `FREE_TO_GO` 상태
+- **Today's Workspace**
+  - 로그 작성 에디터 (제목, 본문, 태그)
+  - `localStorage` 자동/수동 저장
+- **Weekly / Monthly View**
+  - 최근 7일 활동 요약 (Log + Git)
+  - 월별 달력 + Git Calendar(heatmap) 기반 시각화
+
+---
+
+## 📦 스크립트
+
+`package.json` 기준 주요 스크립트는 다음과 같습니다.
+
+- **개발 서버 실행**
+
+```bash
+npm run dev
+# 또는
+yarn dev
+```
+
+- **프로덕션 빌드**
+
+```bash
+npm run build
+npm start
+# 또는
+yarn build
+yarn start
+```
+
+- **Lint**
+
+```bash
+npm run lint
+# 또는
+yarn lint
+```
+
+- **Storybook**
+
+```bash
+npm run storybook
+npm run build-storybook
+# 또는
+yarn storybook
+yarn build-storybook
+```
+
+---
+
+## 🔐 보안 및 운영 팁
+
+- **토큰 권한 최소화**: 공개 레포만 쓰는 용도라면 `public_repo` + `read:user` 정도로 제한  
+- **만료 기간 설정**: 무기한 토큰 대신, 주기적으로 갱신할 수 있는 만료 기간 사용  
+- **개인 계정 분리 권장**: 가능하다면 개발용 별도 GitHub 계정/토큰 사용  
 
