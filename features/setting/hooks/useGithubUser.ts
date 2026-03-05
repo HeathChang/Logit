@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import GitApi from "@/shared/api/apis/GitApi";
+import { useGetGitUserInfoQuery } from "@/shared/api/rtk/gitApi";
 
 type GithubUser = {
   login: string;
@@ -20,18 +20,18 @@ export const useGithubUser = (initialUsername = "") => {
   const [gitUserInfo, setGitUserInfo] = useState<GithubUser | null>(null);
   const [isGithubUsernameValid, setIsGithubUsernameValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   useEffect(() => {
     const savedUsername =
       localStorage.getItem("settings.githubUsername") ??
       "";
 
     if (savedUsername) {
-      setGithubUsername(savedUsername);
+      setTimeout(() => {
+        setGithubUsername(savedUsername);
+      }, 0);
     }
   }, []);
-
-
   useEffect(() => {
     if (!githubUsername) {
       setGitUserInfo(null);
@@ -39,25 +39,9 @@ export const useGithubUser = (initialUsername = "") => {
       return;
     }
 
-    const fetchUser = _.debounce(async (username: string) => {
+    const fetchUser = _.debounce((username: string) => {
       setIsLoading(true);
-      try {
-        const result = await GitApi.getGitUserInfo(username);
-
-        if (result.status === 200) {
-          setIsGithubUsernameValid(true);
-          setGitUserInfo(result.data as GithubUser);
-        } else {
-          setIsGithubUsernameValid(false);
-          setGitUserInfo(null);
-        }
-      } catch {
-        setIsGithubUsernameValid(false);
-        setGitUserInfo(null);
-      } finally {
-        setIsLoading(false);
-      }
-    }, 1000);
+    }, 300);
 
     fetchUser(githubUsername);
 
@@ -65,6 +49,32 @@ export const useGithubUser = (initialUsername = "") => {
       fetchUser.cancel();
     };
   }, [githubUsername]);
+
+  const { data, isLoading: isQueryLoading, isError } = useGetGitUserInfoQuery(
+    githubUsername,
+    {
+      skip: !githubUsername,
+    },
+  );
+
+  useEffect(() => {
+    if (!githubUsername) {
+      setGitUserInfo(null);
+      setIsGithubUsernameValid(false);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(isQueryLoading);
+
+    if (data && !isError) {
+      setIsGithubUsernameValid(true);
+      setGitUserInfo(data as GithubUser);
+    } else if (isError) {
+      setIsGithubUsernameValid(false);
+      setGitUserInfo(null);
+    }
+  }, [data, isError, isQueryLoading, githubUsername]);
 
   return {
     githubUsername,

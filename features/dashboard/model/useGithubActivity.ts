@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import GitApi from "@/shared/api/apis/GitApi";
+import { gitApi } from "@/shared/api/rtk/gitApi";
+import { store } from "@/shared/store/store";
 
 export type GitCalendarPoint = {
     date: string;
@@ -110,18 +111,29 @@ export const useGithubActivity = () => {
 
         const fetchAllCommits = async () => {
             try {
-                // 1. 사용자의 모든 레포지토리 가져오기
+                // 1. 사용자의 모든 레포지토리 가져오기 (RTK Query 사용)
                 const allRepos: GithubRepository[] = [];
                 for (let page = 1; page <= MAX_REPO_PAGES; page += 1) {
-                    const response = await GitApi.getUserRepos(username, page, EVENT_PAGE_SIZE);
+                    const result = await store.dispatch(
+                        gitApi.endpoints.getUserRepos.initiate({
+                            username,
+                            page,
+                            perPage: EVENT_PAGE_SIZE,
+                        }),
+                    );
+                    const response = result;
                     const pageRepos = (response.data ?? []) as GithubRepository[];
                     if (pageRepos.length === 0) break;
                     allRepos.push(...pageRepos);
+
+                    if ("unsubscribe" in result && typeof result.unsubscribe === "function") {
+                        result.unsubscribe();
+                    }
                 }
 
                 console.log(`Found ${allRepos.length} repositories for ${username}`);
 
-                // 2. 각 레포지토리의 커밋 가져오기
+                // 2. 각 레포지토리의 커밋 가져오기 (RTK Query 사용)
                 const allCommits: GithubCommit[] = [];
                 const sinceDate = startDate.toISOString();
 
@@ -131,13 +143,16 @@ export const useGithubActivity = () => {
                         if (repo.private) continue;
 
                         for (let page = 1; page <= MAX_COMMIT_PAGES_PER_REPO; page++) {
-                            const response = await GitApi.getRepoCommits(
-                                repo.owner.login,
-                                repo.name,
-                                page,
-                                EVENT_PAGE_SIZE,
-                                sinceDate,
+                            const result = await store.dispatch(
+                                gitApi.endpoints.getRepoCommits.initiate({
+                                    owner: repo.owner.login,
+                                    repo: repo.name,
+                                    page,
+                                    perPage: EVENT_PAGE_SIZE,
+                                    since: sinceDate,
+                                }),
                             );
+                            const response = result;
                             const pageCommits = (response.data ?? []) as GithubCommit[];
                             if (pageCommits.length === 0) break;
 
@@ -151,8 +166,14 @@ export const useGithubActivity = () => {
 
                             // 마지막 커밋이 startDate보다 이전이면 중단
                             if (pageCommits.length > 0) {
-                                const lastCommitDate = new Date(pageCommits[pageCommits.length - 1].commit.author.date);
+                                const lastCommitDate = new Date(
+                                    pageCommits[pageCommits.length - 1].commit.author.date,
+                                );
                                 if (lastCommitDate < startDate) break;
+                            }
+
+                            if ("unsubscribe" in result && typeof result.unsubscribe === "function") {
+                                result.unsubscribe();
                             }
                         }
                         // API rate limit 방지를 위한 짧은 딜레이
@@ -164,11 +185,18 @@ export const useGithubActivity = () => {
                 console.log(`Fetched ${allCommits.length} commits from all repositories`);
                 setCommits(allCommits);
 
-                // 3. Events API도 병행하여 사용 (추가 데이터 수집)
+                // 3. Events API도 병행하여 사용 (추가 데이터 수집, RTK Query 사용)
                 const allEvents: GithubPushEvent[] = [];
 
                 for (let page = 1; page <= MAX_EVENT_PAGES; page += 1) {
-                    const response = await GitApi.getUserEvents(username, page, EVENT_PAGE_SIZE);
+                    const result = await store.dispatch(
+                        gitApi.endpoints.getUserEvents.initiate({
+                            username,
+                            page,
+                            perPage: EVENT_PAGE_SIZE,
+                        }),
+                    );
+                    const response = result;
                     const pageEvents = (response.data ?? []) as GithubPushEvent[];
                     if (pageEvents.length === 0) break;
                     allEvents.push(...pageEvents);
@@ -178,6 +206,10 @@ export const useGithubActivity = () => {
 
                     if (hasOlderEvent) {
                         break;
+                    }
+
+                    if ("unsubscribe" in result && typeof result.unsubscribe === "function") {
+                        result.unsubscribe();
                     }
                 }
 
