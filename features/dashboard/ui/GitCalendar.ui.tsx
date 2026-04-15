@@ -2,10 +2,8 @@
 
 import ReactCalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
-
-import { useGitCalendar } from "../model/useGitCalendar";
 import { useTranslation } from "react-i18next";
-import { GitCalendarPoint, useGithubActivity } from "../model/useGithubActivity";
+import type { GitCalendarPoint } from "../model/useGithubActivity";
 
 export interface GitCalendarProps {
   startDate: Date;
@@ -46,19 +44,3 @@ export const GitCalendar = ({
     </section>
   );
 };
-
-export const GitCalendarContainer = () => {
-  const { startDate, endDate, values, handleMouseOver, handleClickDate } =
-    useGitCalendar();
-
-  return (
-    <GitCalendar
-      startDate={startDate}
-      endDate={endDate}
-      values={values}
-      onClickDate={handleClickDate}
-      onMouseOver={handleMouseOver}
-    />
-  );
-};
-

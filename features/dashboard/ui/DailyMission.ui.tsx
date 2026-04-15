@@ -1,7 +1,7 @@
 "use client";
 
 import { IconEqual, IconPlus } from "@tabler/icons-react";
-import { MissionCard } from "@/shared/ui/MissionCard";
+import { MissionCard } from "@/shared/ui";
 import { useTranslation } from "react-i18next";
 
 export const DailyMission = () => {
@@ -20,4 +20,3 @@ export const DailyMission = () => {
     </div>
   );
 };
-

@@ -1,9 +1,8 @@
 "use client";
 
-import { DUAL_STATUS } from "@/shared/type/common.type";
+import { DUAL_STATUS } from "@/shared/type";
 import type { DayStatus } from "../model/useMonthlyCalendar";
-import { useMonthlyCalendar } from "../model/useMonthlyCalendar";
-import Button from "@/shared/ui/Button";
+import { Button } from "@/shared/ui";
 import { useTranslation } from "react-i18next";
 
 export interface MonthlyCalendarProps {
@@ -122,15 +121,17 @@ export const MonthlyCalendar = ({
       <div className="mb-4 flex gap-2">
         <Button
           onClick={onToggleLog}
-          className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${showLog ? "bg-logit-log text-white" : "bg-bg-main text-text-sub"
-            }`}
+          className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${
+            showLog ? "bg-logit-log text-white" : "bg-bg-main text-text-sub"
+          }`}
         >
           {t("dashboard.log")}
         </Button>
         <Button
           onClick={onToggleGit}
-          className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${showGit ? "bg-logit-git text-white" : "bg-bg-main text-text-sub"
-            }`}
+          className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${
+            showGit ? "bg-logit-git text-white" : "bg-bg-main text-text-sub"
+          }`}
         >
           {t("dashboard.git")}
         </Button>
@@ -143,12 +144,13 @@ export const MonthlyCalendar = ({
           {weekDays.map((day, index) => (
             <div
               key={day}
-              className={`py-1 text-center text-xs font-medium ${index === 0
+              className={`py-1 text-center text-xs font-medium ${
+                index === 0
                   ? "text-status-danger"
                   : index === 6
                     ? "text-logit-log"
                     : "text-text-sub"
-                }`}
+              }`}
             >
               {day}
             </div>
@@ -172,13 +174,16 @@ export const MonthlyCalendar = ({
             return (
               <div
                 key={date.toISOString()}
-                className={`flex aspect-square flex-col items-center justify-center rounded text-xs text-text-main transition-colors ${isTodayDate ? "ring-2 ring-logit-log" : "hover:bg-bg-main"
-                  }`}
+                className={`flex aspect-square flex-col items-center justify-center rounded text-xs text-text-main transition-colors ${
+                  isTodayDate ? "ring-2 ring-logit-log" : "hover:bg-bg-main"
+                }`}
               >
                 <span className="mb-0.5 text-[10px] font-medium">
                   {date.getDate()}
                 </span>
-                <span className={`text-sm font-bold ${colorClass}`}>{icon}</span>
+                <span className={`text-sm font-bold ${colorClass}`}>
+                  {icon}
+                </span>
               </div>
             );
           })}
@@ -204,50 +209,4 @@ export const MonthlyCalendar = ({
       </div>
     </section>
   );
-}
-
-export const MonthlyCalendarContainer = () => {
-  const {
-    monthLabel,
-    calendarDays,
-    firstDayOfWeek,
-    showLog,
-    showGit,
-    setShowLog,
-    setShowGit,
-    getDayStatus,
-    getDayIcon,
-    getDayColorClass,
-    goToPreviousMonth,
-    goToNextMonth,
-    goToToday,
-  } = useMonthlyCalendar();
-
-  const handleToggleLog = () => {
-    setShowLog((prev) => !prev);
-  };
-
-  const handleToggleGit = () => {
-    setShowGit((prev) => !prev);
-  };
-
-  return (
-    <MonthlyCalendar
-      monthLabel={monthLabel}
-      calendarDays={calendarDays}
-      firstDayOfWeek={firstDayOfWeek}
-      showLog={showLog}
-      showGit={showGit}
-      onToggleLog={handleToggleLog}
-      onToggleGit={handleToggleGit}
-      getDayStatus={getDayStatus}
-      getDayIcon={getDayIcon}
-      getDayColorClass={getDayColorClass}
-      goToPreviousMonth={goToPreviousMonth}
-      goToNextMonth={goToNextMonth}
-      goToToday={goToToday}
-    />
-  );
 };
-
-

@@ -1,4 +1,4 @@
-import { HeaderContainer } from "@/features/global/ui/Header";
+import { HeaderContainer } from "@/widgets/header";
 
 export default function DashboardLayout({
   children,

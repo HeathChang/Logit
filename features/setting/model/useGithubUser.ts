@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import { useGetGitUserInfoQuery } from "@/shared/api/rtk/gitApi";
+import { useGetGitUserInfoQuery } from "@/shared/api";
 
 type GithubUser = {
   login: string;
@@ -22,9 +22,7 @@ export const useGithubUser = (initialUsername = "") => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const savedUsername =
-      localStorage.getItem("settings.githubUsername") ??
-      "";
+    const savedUsername = localStorage.getItem("settings.githubUsername") ?? "";
 
     if (savedUsername) {
       setTimeout(() => {
@@ -50,12 +48,13 @@ export const useGithubUser = (initialUsername = "") => {
     };
   }, [githubUsername]);
 
-  const { data, isLoading: isQueryLoading, isError } = useGetGitUserInfoQuery(
-    githubUsername,
-    {
-      skip: !githubUsername,
-    },
-  );
+  const {
+    data,
+    isLoading: isQueryLoading,
+    isError,
+  } = useGetGitUserInfoQuery(githubUsername, {
+    skip: !githubUsername,
+  });
 
   useEffect(() => {
     if (!githubUsername) {
@@ -84,4 +83,3 @@ export const useGithubUser = (initialUsername = "") => {
     isLoading,
   };
 };
-

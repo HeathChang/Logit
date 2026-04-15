@@ -1,11 +1,9 @@
-
 export const LOG_STATUS = {
-  RECORD: 'RECORD',
-  EMPTY: 'EMPTY',
+  RECORD: "RECORD",
+  EMPTY: "EMPTY",
 } as const;
 
-
-export type LogStatus = typeof LOG_STATUS[keyof typeof LOG_STATUS];
+export type LogStatus = (typeof LOG_STATUS)[keyof typeof LOG_STATUS];
 
 export interface Log {
   id: string;

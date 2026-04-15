@@ -11,7 +11,7 @@ export const useMonthlyCalendar = () => {
   const [showLog, setShowLog] = useState(true);
   const [showGit, setShowGit] = useState(true);
 
-    // 현재 달의 첫 날과 마지막 날 계산
+  // 현재 달의 첫 날과 마지막 날 계산
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
@@ -19,7 +19,7 @@ export const useMonthlyCalendar = () => {
   const lastDay = new Date(year, month + 1, 0);
   const firstDayOfWeek = firstDay.getDay(); // 0 (일요일) ~ 6 (토요일)
 
-    // 달력에 표시할 날짜들 생성 (현재 달의 날짜만)
+  // 달력에 표시할 날짜들 생성 (현재 달의 날짜만)
   const calendarDays = useMemo(() => {
     const days: Date[] = [];
 
@@ -31,7 +31,7 @@ export const useMonthlyCalendar = () => {
     return days;
   }, [year, month, lastDay]);
 
-    // 각 날짜의 상태 (실제 데이터는 나중에 API로 가져올 예정)
+  // 각 날짜의 상태 (실제 데이터는 나중에 API로 가져올 예정)
   const dayStatuses = useMemo(() => {
     const statuses: Map<string, DayStatus> = new Map();
 
@@ -125,4 +125,3 @@ export const useMonthlyCalendar = () => {
     goToToday,
   };
 };
-

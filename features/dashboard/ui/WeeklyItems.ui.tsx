@@ -1,9 +1,8 @@
 "use client";
 
-import { DUAL_STATUS } from "@/shared/type/common.type";
+import { DUAL_STATUS } from "@/shared/type";
 import { useTranslation } from "react-i18next";
-import { useGithubActivity } from "../model/useGithubActivity";
-import { WeeklyItem } from "./WeeklyItem";
+import { WeeklyItem } from "./WeeklyItem.ui";
 
 type TraceItem = {
   /** 예: "01.29 Wed" */
@@ -18,7 +17,6 @@ export type WeeklyItemsProps = {
   items?: TraceItem[];
 };
 
-
 export const WeeklyItems = ({ items }: WeeklyItemsProps) => {
   const { t } = useTranslation();
 
@@ -26,8 +24,12 @@ export const WeeklyItems = ({ items }: WeeklyItemsProps) => {
     <section className="w-full rounded-xl bg-bg-card px-8 py-6 shadow-sm">
       <header className="mb-3 flex items-center justify-between">
         <div>
-          <h2 className="text-sm font-semibold text-text-main">{t("dashboard.weeklyFlow")}</h2>
-          <p className="text-xs text-text-sub">{t("dashboard.weeklyFlowDescription")}</p>
+          <h2 className="text-sm font-semibold text-text-main">
+            {t("dashboard.weeklyFlow")}
+          </h2>
+          <p className="text-xs text-text-sub">
+            {t("dashboard.weeklyFlowDescription")}
+          </p>
         </div>
 
         <div className="flex items-center gap-2 text-[10px] text-text-sub">
@@ -59,15 +61,11 @@ export const WeeklyItems = ({ items }: WeeklyItemsProps) => {
             );
           })
         ) : (
-          <div className="py-4 text-center text-xs text-text-sub">{t("dashboard.weeklyEmptyMessage")}</div>
+          <div className="py-4 text-center text-xs text-text-sub">
+            {t("dashboard.weeklyEmptyMessage")}
+          </div>
         )}
       </div>
     </section>
   );
-};
-
-export const WeeklyItemsContainer = () => {
-  const { weeklyItems } = useGithubActivity();
-
-  return <WeeklyItems items={weeklyItems} />;
 };

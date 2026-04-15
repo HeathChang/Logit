@@ -1,8 +1,7 @@
 "use client";
 
-import { DUAL_STATUS } from "@/shared/type/common.type";
+import { DUAL_STATUS } from "@/shared/type";
 import { useTranslation } from "react-i18next";
-
 
 export type WeeklyItemProps = {
   /** 예: "01.29 Wed" */
@@ -48,8 +47,9 @@ export const WeeklyItem = ({
       {/* 로그 요약 */}
       <div className="flex-1 px-3">
         <p
-          className={`truncate text-sm ${hasLog ? "text-text-main" : "italic text-text-sub"
-            }`}
+          className={`truncate text-sm ${
+            hasLog ? "text-text-main" : "italic text-text-sub"
+          }`}
         >
           {displayTitle}
         </p>
@@ -57,7 +57,9 @@ export const WeeklyItem = ({
 
       {/* Git 활동 요약 */}
       <div className="w-[96px] text-right text-xs text-text-sub">
-        {hasCommit ? `${commitCount} ${t("git.commits")}` : t("git.zeroCommits")}
+        {hasCommit
+          ? `${commitCount} ${t("git.commits")}`
+          : t("git.zeroCommits")}
       </div>
 
       {/* 상태 신호등 */}
@@ -70,4 +72,3 @@ export const WeeklyItem = ({
     </article>
   );
 };
-

@@ -16,9 +16,9 @@
 }
 
 :root {
-  --status-success: #88AB75; 
-  --status-warning: #E7A675; 
-  --status-danger: #D67676; 
+  --status-success: #88ab75;
+  --status-warning: #e7a675;
+  --status-danger: #d67676;
 
   --logit-log-primary: #0059d6;
   --logit-git-primary: #09d868;
@@ -51,7 +51,9 @@ body {
   background-color: var(--bg-default);
   color: var(--text-main);
   font-family: var(--font-inter, system-ui, -apple-system, sans-serif);
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 /* 스크롤바 커스텀 */
 ::-webkit-scrollbar {

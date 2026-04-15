@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
@@ -10,9 +9,7 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { $getRoot } from "lexical";
 import type { InitialConfigType } from "@lexical/react/LexicalComposer";
-
-import { useEditor } from "@/features/dashboard/model/useEditor";
-import Button from "@/shared/ui/Button";
+import { Button } from "@/shared/ui";
 import { useTranslation } from "react-i18next";
 
 export interface LogEditorProps {
@@ -23,15 +20,6 @@ export interface LogEditorProps {
   isSaveEnabled: boolean;
   onChangeContent: (value: string) => void;
 }
-
-const logEditorTheme = {
-  paragraph: "mb-1 leading-relaxed text-sm text-text-main",
-  text: {
-    bold: "font-semibold",
-    italic: "italic",
-    underline: "underline",
-  },
-};
 
 const ContentChangePlugin = ({
   onChange,
@@ -51,7 +39,7 @@ const ContentChangePlugin = ({
   );
 };
 
-export const LogEditorView = ({
+export const LogEditor = ({
   initialConfig,
   title,
   onChangeTitle,
@@ -59,7 +47,6 @@ export const LogEditorView = ({
   isSaveEnabled,
   onChangeContent,
 }: LogEditorProps) => {
-
   const { t } = useTranslation();
   return (
     <section className="h-full w-full">
@@ -81,7 +68,8 @@ export const LogEditorView = ({
             htmlFor="log-title"
             className="text-xs font-medium text-text-main"
           >
-            {t("logEditor.titleLabel")} <span className="text-status-danger">*</span>
+            {t("logEditor.titleLabel")}{" "}
+            <span className="text-status-danger">*</span>
           </label>
           <input
             id="log-title"
@@ -115,10 +103,11 @@ export const LogEditorView = ({
               <Button
                 onClick={onSave}
                 disabled={!isSaveEnabled}
-                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${isSaveEnabled
-                  ? "cursor-pointer bg-status-success text-white hover:opacity-90"
-                  : "cursor-not-allowed bg-bg-main text-text-sub opacity-50"
-                  }`}
+                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
+                  isSaveEnabled
+                    ? "cursor-pointer bg-status-success text-white hover:opacity-90"
+                    : "cursor-not-allowed bg-bg-main text-text-sub opacity-50"
+                }`}
               >
                 {t("logEditor.saveButton")}
               </Button>
@@ -129,34 +118,3 @@ export const LogEditorView = ({
     </section>
   );
 };
-
-export const LogEditorContainer = () => {
-  const { initialConfig } = useEditor({
-    theme: logEditorTheme,
-  });
-
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
-  const isSaveEnabled =
-    title.trim().length > 0 && content.trim().length >= 10;
-
-  const handleSave = () => {
-    if (!isSaveEnabled) return;
-    // TODO: 저장 로직 구현
-    // eslint-disable-next-line no-console
-    console.log("저장:", { title, content });
-  };
-
-  return (
-    <LogEditorView
-      initialConfig={initialConfig}
-      title={title}
-      onChangeTitle={setTitle}
-      onSave={handleSave}
-      isSaveEnabled={isSaveEnabled}
-      onChangeContent={setContent}
-    />
-  );
-};
-

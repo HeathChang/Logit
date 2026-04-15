@@ -21,14 +21,9 @@ export const MissionCard = ({ title, isSuccess }: MissionCardProps) => {
             strokeWidth={2.5}
           />
         ) : (
-          <IconX
-            className="text-status-danger"
-            size={28}
-            strokeWidth={2.5}
-          />
+          <IconX className="text-status-danger" size={28} strokeWidth={2.5} />
         )}
       </div>
     </div>
   );
 };
-

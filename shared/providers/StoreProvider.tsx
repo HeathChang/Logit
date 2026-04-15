@@ -1,13 +1,12 @@
 "use client";
 
 import { Provider } from "react-redux";
-import { store } from "@/shared/store/store";
+import { store } from "@/shared/store";
 
 type Props = {
-    children: React.ReactNode;
+  children: React.ReactNode;
 };
 
 export const StoreProvider = ({ children }: Props) => {
-    return <Provider store={store}>{children}</Provider>;
+  return <Provider store={store}>{children}</Provider>;
 };
-
