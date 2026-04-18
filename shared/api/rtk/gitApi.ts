@@ -28,40 +28,7 @@ export const gitApi = createApi({
       query: ({ username, page = 1, perPage = 100 }) =>
         `/users/${username}/events/public?page=${page}&per_page=${perPage}`,
     }),
-    getUserRepos: builder.query<
-      unknown,
-      { username: string; page?: number; perPage?: number }
-    >({
-      query: ({ username, page = 1, perPage = 100 }) =>
-        `/users/${username}/repos?page=${page}&per_page=${perPage}&sort=updated&direction=desc`,
-    }),
-    getRepoCommits: builder.query<
-      unknown,
-      {
-        owner: string;
-        repo: string;
-        page?: number;
-        perPage?: number;
-        since?: string;
-      }
-    >({
-      query: ({ owner, repo, page = 1, perPage = 100, since }) => {
-        const params = new URLSearchParams({
-          page: String(page),
-          per_page: String(perPage),
-        });
-        if (since) {
-          params.set("since", since);
-        }
-        return `/repos/${owner}/${repo}/commits?${params.toString()}`;
-      },
-    }),
   }),
 });
 
-export const {
-  useGetGitUserInfoQuery,
-  useGetUserEventsQuery,
-  useGetUserReposQuery,
-  useGetRepoCommitsQuery,
-} = gitApi;
+export const { useGetGitUserInfoQuery, useGetUserEventsQuery } = gitApi;

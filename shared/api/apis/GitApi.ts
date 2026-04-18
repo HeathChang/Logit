@@ -22,38 +22,6 @@ class GitApiClass extends Http {
         throw new Error(error);
       });
   }
-
-  async getUserRepos(username: string, page = 1, perPage = 100) {
-    return this.get(
-      `https://api.github.com/users/${username}/repos?page=${page}&per_page=${perPage}&sort=updated&direction=desc`,
-    )
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        throw new Error(error);
-      });
-  }
-
-  async getRepoCommits(
-    owner: string,
-    repo: string,
-    page = 1,
-    perPage = 100,
-    since?: string,
-  ) {
-    let url = `https://api.github.com/repos/${owner}/${repo}/commits?page=${page}&per_page=${perPage}`;
-    if (since) {
-      url += `&since=${since}`;
-    }
-    return this.get(url)
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        throw new Error(error);
-      });
-  }
 }
 const GitApi = new GitApiClass();
 
