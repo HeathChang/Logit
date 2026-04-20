@@ -112,9 +112,9 @@ const SettingPage = () => {
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-4">
                   {/* 깃허브 유저 프로필 이미지 */}
-                  {gitUserInfo.avatar_url ? (
+                  {gitUserInfo.avatarUrl ? (
                     <img
-                      src={gitUserInfo.avatar_url}
+                      src={gitUserInfo.avatarUrl}
                       alt={githubUsername}
                       className="h-20 w-20 rounded-full object-cover"
                     />
@@ -140,14 +140,14 @@ const SettingPage = () => {
                     <div className="text-xs text-text-sub">
                       <a
                         href={
-                          gitUserInfo.html_url ??
+                          gitUserInfo.htmlUrl ??
                           `https://github.com/${githubUsername}`
                         }
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline underline-offset-2"
                       >
-                        {gitUserInfo.html_url ??
+                        {gitUserInfo.htmlUrl ??
                           `https://github.com/${githubUsername}`}
                       </a>
                     </div>
@@ -158,7 +158,7 @@ const SettingPage = () => {
                 <div className="mt-2 flex flex-wrap gap-4 text-xs text-text-sub">
                   <span>
                     <span className="font-semibold text-text-main">
-                      {gitUserInfo.public_repos}
+                      {gitUserInfo.publicRepos}
                     </span>{" "}
                     공개 레포지토리
                   </span>

@@ -1,79 +1,80 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import _ from "lodash";
-import { useGetGitUserInfoQuery } from "@/shared/api";
+import { useGetGithubUserQuery } from "@/shared/api";
+import type { GithubUserQuery } from "@/shared/api";
 
-type GithubUser = {
+type GithubUserNode = NonNullable<GithubUserQuery["user"]>;
+
+export type GithubUserProfile = {
   login: string;
-  name: string | null;
-  avatar_url: string | null;
-  html_url: string;
-  bio: string | null;
-  public_repos: number;
+  name: string | undefined;
+  avatarUrl: string | undefined;
+  htmlUrl: string;
+  bio: string | undefined;
+  publicRepos: number;
   followers: number;
   following: number;
-  company: string | null;
-  location: string | null;
+  company: string | undefined;
+  location: string | undefined;
 };
+
+const SETTING_GITHUB_USERNAME_KEY = "settings.githubUsername";
+
+const toProfile = (user: GithubUserNode): GithubUserProfile => ({
+  login: user.login,
+  name: user.name ?? undefined,
+  avatarUrl: user.avatarUrl,
+  htmlUrl: user.url,
+  bio: user.bio ?? undefined,
+  publicRepos: user.repositories.totalCount,
+  followers: user.followers.totalCount,
+  following: user.following.totalCount,
+  company: user.company ?? undefined,
+  location: user.location ?? undefined,
+});
 
 export const useGithubUser = (initialUsername = "") => {
   const [githubUsername, setGithubUsername] = useState(initialUsername);
-  const [gitUserInfo, setGitUserInfo] = useState<GithubUser | null>(null);
-  const [isGithubUsernameValid, setIsGithubUsernameValid] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [debouncedUsername, setDebouncedUsername] = useState(initialUsername);
 
   useEffect(() => {
-    const savedUsername = localStorage.getItem("settings.githubUsername") ?? "";
+    const savedUsername =
+      localStorage.getItem(SETTING_GITHUB_USERNAME_KEY) ?? "";
 
     if (savedUsername) {
-      setTimeout(() => {
-        setGithubUsername(savedUsername);
-      }, 0);
+      setGithubUsername(savedUsername);
+      setDebouncedUsername(savedUsername);
     }
   }, []);
-  useEffect(() => {
-    if (!githubUsername) {
-      setGitUserInfo(null);
-      setIsGithubUsernameValid(false);
-      return;
-    }
 
-    const fetchUser = _.debounce((username: string) => {
-      setIsLoading(true);
+  useEffect(() => {
+    const applyDebounced = _.debounce((value: string) => {
+      setDebouncedUsername(value);
     }, 300);
 
-    fetchUser(githubUsername);
+    applyDebounced(githubUsername);
 
     return () => {
-      fetchUser.cancel();
+      applyDebounced.cancel();
     };
   }, [githubUsername]);
 
   const {
     data,
-    isLoading: isQueryLoading,
+    isFetching,
     isError,
-  } = useGetGitUserInfoQuery(githubUsername, {
-    skip: !githubUsername,
-  });
+  } = useGetGithubUserQuery(
+    { login: debouncedUsername },
+    { skip: !debouncedUsername },
+  );
 
-  useEffect(() => {
-    if (!githubUsername) {
-      setGitUserInfo(null);
-      setIsGithubUsernameValid(false);
-      setIsLoading(false);
-      return;
-    }
+  const gitUserInfo = useMemo<GithubUserProfile | undefined>(() => {
+    if (!data?.user) return undefined;
+    return toProfile(data.user);
+  }, [data]);
 
-    setIsLoading(isQueryLoading);
-
-    if (data && !isError) {
-      setIsGithubUsernameValid(true);
-      setGitUserInfo(data as GithubUser);
-    } else if (isError) {
-      setIsGithubUsernameValid(false);
-      setGitUserInfo(null);
-    }
-  }, [data, isError, isQueryLoading, githubUsername]);
+  const isGithubUsernameValid = Boolean(gitUserInfo) && !isError;
+  const isLoading = Boolean(debouncedUsername) && isFetching;
 
   return {
     githubUsername,
