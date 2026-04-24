@@ -1,34 +1,40 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { graphqlBaseQuery } from "@/shared/api/graphql/baseQuery";
+import {
+  GithubContributionsDocument,
+  GithubUserDocument,
+  type GithubContributionsQuery,
+  type GithubContributionsQueryVariables,
+  type GithubUserQuery,
+  type GithubUserQueryVariables,
+} from "@/shared/api/graphql/__generated__/graphql";
 
 const GITHUB_STALE_SECONDS = 20 * 60; // 20 minutes
 
 export const gitApi = createApi({
   reducerPath: "gitApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.github.com",
-    prepareHeaders: (headers) => {
-      if (process.env.NEXT_PUBLIC_GITHUB_TOKEN) {
-        headers.set("Authorization", process.env.NEXT_PUBLIC_GITHUB_TOKEN);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: graphqlBaseQuery,
   keepUnusedDataFor: GITHUB_STALE_SECONDS,
   refetchOnMountOrArgChange: GITHUB_STALE_SECONDS,
   refetchOnFocus: false,
   refetchOnReconnect: false,
   endpoints: (builder) => ({
-    getGitUserInfo: builder.query<unknown, string>({
-      query: (username) => `/users/${username}`,
+    getGithubUser: builder.query<GithubUserQuery, GithubUserQueryVariables>({
+      query: (variables) => ({
+        document: GithubUserDocument,
+        variables,
+      }),
     }),
-    getUserEvents: builder.query<
-      unknown,
-      { username: string; page?: number; perPage?: number }
+    getGithubContributions: builder.query<
+      GithubContributionsQuery,
+      GithubContributionsQueryVariables
     >({
-      query: ({ username, page = 1, perPage = 100 }) =>
-        `/users/${username}/events/public?page=${page}&per_page=${perPage}`,
+      query: (variables) => ({
+        document: GithubContributionsDocument,
+        variables,
+      }),
     }),
   }),
 });
 
-export const { useGetGitUserInfoQuery, useGetUserEventsQuery } = gitApi;
+export const { useGetGithubUserQuery, useGetGithubContributionsQuery } = gitApi;

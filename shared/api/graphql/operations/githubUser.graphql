@@ -1,0 +1,20 @@
+query GithubUser($login: String!) {
+  user(login: $login) {
+    login
+    name
+    avatarUrl
+    url
+    bio
+    company
+    location
+    repositories(ownerAffiliations: OWNER, privacy: PUBLIC) {
+      totalCount
+    }
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
+  }
+}
